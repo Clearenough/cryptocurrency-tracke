@@ -4,6 +4,7 @@ import Info from './pages/Info/Info';
 import Main from './pages/Main/Main';
 import NotFound from './pages/NotFound/NotFound';
 import './index.scss';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           </Routes>
         </div>
       </body>
+      <Footer />
     </div>
   );
 }

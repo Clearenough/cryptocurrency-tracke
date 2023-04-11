@@ -1,0 +1,13 @@
+@import './../../style/constants.scss';
+@import './../../style/mixins.scss';
+
+.footer {
+  background-color: $secondary-color;
+  font-size: 2rem;
+
+  .container {
+    @include container;
+    display: flex;
+    justify-content: center;
+  }
+}
