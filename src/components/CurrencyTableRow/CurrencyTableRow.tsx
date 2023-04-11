@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { ICurrencyInfo } from '../../@types/common';
 import styles from './CurrencyTableRow.module.scss';
 
@@ -11,8 +12,16 @@ function CurrencyTableRow({
   volumeUsd24Hr,
   supply,
 }: ICurrencyInfo) {
+  const navigate = useNavigate();
+
+  const mockId = 'bitcoin';
+
+  function openInfo(mockId: string): void {
+    navigate(`/info/${mockId}`);
+  }
+
   return (
-    <tr className={styles.tableRow}>
+    <tr className={styles.tableRow} onClick={() => openInfo(mockId)}>
       <td className={styles.tableCell}>{rank}</td>
       <td className={styles.tableCell}>{name}</td>
       <td className={styles.tableCell}>{priceUsd}</td>
