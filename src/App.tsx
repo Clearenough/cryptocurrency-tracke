@@ -7,8 +7,14 @@ import './index.scss';
 import Footer from './components/Footer/Footer';
 
 function App() {
+  async function sas() {
+    const res = await fetch('https://api.coincap.io/v2/assets');
+    const data = await res.json();
+    console.log(data);
+  }
+  sas();
   return (
-    <div className="wrapper">
+    <>
       <Header />
       <body>
         <div className="container">
@@ -21,7 +27,7 @@ function App() {
         </div>
       </body>
       <Footer />
-    </div>
+    </>
   );
 }
 

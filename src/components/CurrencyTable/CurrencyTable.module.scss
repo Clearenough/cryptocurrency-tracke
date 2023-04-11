@@ -1,0 +1,23 @@
+@import './../../style/constants.scss';
+@import './../../style/mixins.scss';
+
+.table {
+  // display: flex;
+  // flex-direction: column;
+  width: 120rem;
+  background-color: $background-table;
+  font-size: 2rem;
+  border-collapse: collapse;
+  box-shadow: 6px 6px 8px 0px rgba(34, 60, 80, 0.2);
+
+  .tableHeader {
+    .tableRow {
+      // display: flex;
+      // justify-content: space-between;
+      line-height: 4rem;
+      .tableCell {
+        text-align: center;
+      }
+    }
+  }
+}
