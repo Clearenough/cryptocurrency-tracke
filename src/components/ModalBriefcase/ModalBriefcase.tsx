@@ -46,7 +46,7 @@ const mock = [
 ];
 
 interface IProps {
-  close: () => void;
+  close: (value: boolean) => void;
 }
 
 function ModalBriefcase({ close }: IProps) {
@@ -59,7 +59,7 @@ function ModalBriefcase({ close }: IProps) {
   }
 
   return (
-    <div className={styles.modal} onClick={() => close()}>
+    <div className={styles.modal} onClick={() => close(false)}>
       <div className={styles.modalContent}>
         <img className={styles.img} src={shop} alt="briefcase" />
         <h2 className={styles.totalSum}>Total sum: ${summary}</h2>

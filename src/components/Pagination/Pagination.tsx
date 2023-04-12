@@ -40,19 +40,22 @@ function Pagination({ onPageChange, totalCount, siblingCount, currentPage, pageS
         {'<'}
       </li>
       {paginationRange &&
-        paginationRange.map((pageNumber) => {
+        paginationRange.map((pageNumber, index) => {
           if (pageNumber === DOTS) {
-            // eslint-disable-next-line react/jsx-key
-            return <li className={[styles.dotsIndicator, styles.indicator].join(' ')}>&#8230;</li>;
+            return (
+              <li className={[styles.dotsIndicator, styles.indicator].join(' ')} key={index}>
+                &#8230;
+              </li>
+            );
           }
 
           return (
-            // eslint-disable-next-line react/jsx-key
             <li
               className={`${styles.pageIndicator} ${styles.indicator} ${
                 pageNumber === currentPage ? styles.active : ''
               }`}
               onClick={() => onPageChange(Number(pageNumber))}
+              key={index}
             >
               {pageNumber}
             </li>
