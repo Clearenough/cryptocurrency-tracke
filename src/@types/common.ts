@@ -12,3 +12,8 @@ export interface ICurrencyInfo {
   volumeUsd24Hr: string;
   vwap24Hr: string;
 }
+
+export interface IAPIResults {
+  data: ICurrencyInfo[];
+  timestamp: number;
+}

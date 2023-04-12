@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ICurrencyInfo } from '../../@types/common';
 import ControlButton from '../common/buttons/controlButton/ControlButton';
-import ModalAddCurrency from '../common/modals/ModalAddCurrency/ModalAddCurrency';
+import ModalAddCurrency from '../common/modals/modalAddCurrency/ModalAddCurrency';
 import styles from './CurrencyTableRow.module.scss';
 
 function CurrencyTableRow(currencyInfo: ICurrencyInfo) {
