@@ -6,6 +6,10 @@ import styles from './Main.module.scss';
 
 function Main() {
   const [currencyInfo, setCurrencyInfo] = useState<ICurrencyInfo[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const PAGE_SIZE = 8;
+  const SIBLING_COUNT = 2;
 
   useEffect(() => {
     (async function () {
@@ -28,11 +32,11 @@ function Main() {
     <div className={styles.container}>
       <CurrencyTable />
       <Pagination
-        onPageChange={(x) => console.log(x)}
-        currentPage={1}
-        totalCount={23}
-        siblingCount={2}
-        pageSize={10}
+        onPageChange={(x) => setCurrentPage(x)}
+        currentPage={currentPage}
+        totalCount={currencyInfo.length}
+        siblingCount={SIBLING_COUNT}
+        pageSize={PAGE_SIZE}
       />
     </div>
   );
