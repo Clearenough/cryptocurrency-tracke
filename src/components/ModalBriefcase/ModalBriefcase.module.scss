@@ -26,6 +26,8 @@
     }
 
     .currencyList {
+      max-height: 350px;
+      overflow-y: scroll;
       list-style: none;
       display: flex;
       flex-direction: column;

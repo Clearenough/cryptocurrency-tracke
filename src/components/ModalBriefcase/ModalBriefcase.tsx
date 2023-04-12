@@ -25,6 +25,24 @@ const mock = [
     quantity: 23,
     id: 4,
   },
+  {
+    name: 'asd',
+    price: 123,
+    quantity: 23,
+    id: 6,
+  },
+  {
+    name: 'asd',
+    price: 123,
+    quantity: 23,
+    id: 7,
+  },
+  {
+    name: 'asd',
+    price: 123,
+    quantity: 23,
+    id: 8,
+  },
 ];
 
 interface IProps {
