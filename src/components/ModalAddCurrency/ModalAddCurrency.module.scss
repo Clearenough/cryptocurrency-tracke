@@ -1,0 +1,45 @@
+@import './../../style/mixins.scss';
+@import './../../style/constants.scss';
+
+.modal {
+  @include modal;
+
+  .modalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 5rem 10rem;
+    gap: 4rem;
+
+    .currencyName {
+      font-size: 4rem;
+    }
+
+    .form {
+      display: flex;
+      gap: 2rem;
+
+      .input {
+        padding: 1rem 0 1rem 2rem;
+        border: 1px solid $secondary-color;
+
+        &:hover {
+          border-radius: 10px;
+        }
+      }
+
+      .addButton {
+        cursor: pointer;
+        font-size: 2rem;
+        background-color: $secondary-color-light;
+        padding: 1rem 2rem;
+
+        &:hover {
+          background-color: $secondary-color;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+}
