@@ -8,7 +8,11 @@ import Footer from './components/Footer/Footer';
 
 function App() {
   async function sas() {
-    const res = await fetch('https://api.coincap.io/v2/assets');
+    const res = await fetch('https://api.coincap.io/v2/assets', {
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+      },
+    });
     const data = await res.json();
     console.log(data);
   }
