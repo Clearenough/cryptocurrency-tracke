@@ -1,0 +1,24 @@
+@import './../../../../style/mixins.scss';
+@import './../../../../style/constants.scss';
+
+.modal {
+  @include modal;
+
+  .modalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 5rem 10rem;
+    gap: 4rem;
+
+    .currencyName {
+      font-size: 4rem;
+    }
+
+    .form {
+      display: flex;
+      gap: 2rem;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@import './../../style/mixins.scss';
+
+.container {
+  @include container;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

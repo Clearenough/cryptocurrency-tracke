@@ -1,0 +1,45 @@
+@import './../../style/constants.scss';
+
+.paginationBar {
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+  user-select: none;
+  font-size: 2rem;
+
+  .indicator {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    padding: 1rem;
+    background-color: $secondary-color-light;
+    border: 1px solid $secondary-color;
+    border-radius: 100%;
+  }
+
+  .dotsIndicator {
+    cursor: default;
+    background-color: white;
+  }
+
+  .left:hover,
+  .right:hover,
+  .pageIndicator:hover {
+    background-color: $secondary-color;
+  }
+
+  .active {
+    background-color: $secondary-color;
+  }
+
+  .inactive {
+    cursor: default;
+    background-color: white;
+    pointer-events: none;
+  }
+}
