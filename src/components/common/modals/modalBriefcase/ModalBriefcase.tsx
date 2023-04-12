@@ -1,5 +1,6 @@
 import styles from './ModalBriefcase.module.scss';
-import shop from './../../assets/svg/briefcase.svg';
+import shop from './../../../../assets/svg/briefcase.svg';
+import ControlButton from '../../buttons/controlButton/ControlButton';
 const mock = [
   {
     name: 'asd',
@@ -69,9 +70,13 @@ function ModalBriefcase({ close }: IProps) {
               <span>{item.name}</span>
               <span>{'Price:' + item.price + '$'}</span>
               <span>{'quantity:' + item.quantity}</span>
-              <button className={styles.deleteButton} onClick={(e) => deleteCurrency(e)}>
-                -
-              </button>
+              <ControlButton
+                type={'DELETE'}
+                onClick={(e) => {
+                  deleteCurrency(e);
+                  console.log('click');
+                }}
+              />
             </li>
           ))}
         </ul>

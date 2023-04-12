@@ -1,0 +1,25 @@
+@import './../../../../style/constants.scss';
+
+.addButton {
+  cursor: pointer;
+  font-size: 2rem;
+  background-color: $secondary-color-light;
+  padding: 1rem 2rem;
+
+  &:hover {
+    background-color: $secondary-color;
+    border-radius: 10px;
+  }
+}
+
+.deleteButton {
+  cursor: pointer;
+  font-size: 2rem;
+  background-color: $warning-color-light;
+  padding: 1rem 2rem;
+
+  &:hover {
+    background-color: $warning-color;
+    border-radius: 10px;
+  }
+}

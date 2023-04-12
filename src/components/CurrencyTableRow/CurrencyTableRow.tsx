@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ICurrencyInfo } from '../../@types/common';
-import ModalAddCurrency from '../ModalAddCurrency/ModalAddCurrency';
+import ControlButton from '../common/buttons/controlButton/ControlButton';
+import ModalAddCurrency from '../common/modals/ModalAddCurrency/ModalAddCurrency';
 import styles from './CurrencyTableRow.module.scss';
 
 function CurrencyTableRow(currencyInfo: ICurrencyInfo) {
@@ -35,9 +36,12 @@ function CurrencyTableRow(currencyInfo: ICurrencyInfo) {
         <td className={styles.tableCell}>{volumeUsd24Hr}</td>
         <td className={styles.tableCell}>{supply}</td>
         <td className={styles.tableCell}>
-          <button className={styles.addButton} onClick={(e) => openModal(e)}>
-            +
-          </button>
+          <ControlButton
+            onClick={(e) => {
+              openModal(e);
+            }}
+            type={'ADD'}
+          />
         </td>
       </tr>
       {isModalAddCurrencyOpen && (

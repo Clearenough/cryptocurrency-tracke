@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { ICurrencyInfo } from '../../@types/common';
+import { ICurrencyInfo } from '../../../../@types/common';
+import ControlButton from '../../buttons/controlButton/ControlButton';
+import NumberInput from '../../inputs/numberInput/NumberInput';
 import styles from './ModalAddCurrency.module.scss';
 
 interface IProps {
@@ -19,18 +21,8 @@ function ModalAddCurrency({ close, currencyInfo }: IProps) {
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <h2 className={styles.currencyName}>{currencyInfo.name}</h2>
         <form className={styles.form}>
-          <input
-            type="number"
-            name="currencyAmount"
-            placeholder="Enter amount"
-            step={0.001}
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            className={styles.input}
-          />
-          <button onClick={(e) => onCurrencyAdd(e)} className={styles.addButton}>
-            +
-          </button>
+          <NumberInput onChange={(e) => setValue(e.target.value)} value={value} />
+          <ControlButton type="ADD" onClick={(e) => onCurrencyAdd(e)} />
         </form>
       </div>
     </div>
