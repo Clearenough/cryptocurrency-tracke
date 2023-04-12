@@ -21,7 +21,7 @@ function Main() {
   async function fetchData(): Promise<IAPIResults> {
     const res = await fetch('https://api.coincap.io/v2/assets', {
       headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+        Authorization: `Bearer ${import.meta.env.VITE_COINCAP_API_KEY}`,
       },
     });
     const data: IAPIResults = await res.json();
