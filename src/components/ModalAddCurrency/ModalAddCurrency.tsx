@@ -3,7 +3,7 @@ import { ICurrencyInfo } from '../../@types/common';
 import styles from './ModalAddCurrency.module.scss';
 
 interface IProps {
-  close: () => void;
+  close: (value: boolean) => void;
   currencyInfo: ICurrencyInfo;
 }
 
@@ -15,8 +15,8 @@ function ModalAddCurrency({ close, currencyInfo }: IProps) {
   }
 
   return (
-    <div className={styles.modal} onClick={() => close()}>
-      <div className={styles.modalContent}>
+    <div className={styles.modal} onClick={() => close(false)}>
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <h2 className={styles.currencyName}>{currencyInfo.name}</h2>
         <form className={styles.form}>
           <input

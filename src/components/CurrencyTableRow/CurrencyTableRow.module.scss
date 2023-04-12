@@ -8,8 +8,21 @@
   border: 3rem solid $background-table;
   border-radius: 3px;
   transform: scale(1);
+
   .tableCell {
     padding: 1.5rem;
     text-align: center;
+  }
+
+  .addButton {
+    cursor: pointer;
+    font-size: 2rem;
+    background-color: $secondary-color-light;
+    padding: 1rem 2rem;
+
+    &:hover {
+      background-color: $secondary-color;
+      border-radius: 10px;
+    }
   }
 }
