@@ -16,7 +16,7 @@ function App() {
   return (
     <>
       <Header />
-      <body>
+      <section>
         <div className="container">
           <Routes>
             <Route path="/" element={<Main />} />
@@ -25,7 +25,7 @@ function App() {
             <Route path="*" element={<Navigate to={'/404'} />} />
           </Routes>
         </div>
-      </body>
+      </section>
       <Footer />
     </>
   );
