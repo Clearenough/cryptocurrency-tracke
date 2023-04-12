@@ -1,5 +1,6 @@
 import CurrencyTable from '../../components/CurrencyTable/CurrencyTable';
 import ModalAddCurrency from '../../components/ModalAddCurrency/ModalAddCurrency';
+import ModalBriefcase from '../../components/ModalBriefcase/ModalBriefcase';
 import Pagination from '../../components/Pagination/Pagination';
 import styles from './Main.module.scss';
 
@@ -29,12 +30,11 @@ function Main() {
         siblingCount={2}
         pageSize={10}
       />
-      <ModalAddCurrency
+      <ModalBriefcase
         close={function (): void {
           throw new Error('Function not implemented.');
         }}
-        currencyInfo={mock}
-      ></ModalAddCurrency>
+      ></ModalBriefcase>
     </div>
   );
 }

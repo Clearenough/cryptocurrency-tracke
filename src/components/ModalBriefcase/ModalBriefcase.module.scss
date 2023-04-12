@@ -1,0 +1,53 @@
+@import './../../style/mixins.scss';
+@import './../../style/constants.scss';
+
+.modal {
+  @include modal;
+
+  .modalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    background-color: white;
+    padding: 2rem 10rem;
+    font-size: 2rem;
+
+    .img {
+      position: relative;
+      top: -7rem;
+      width: 10rem;
+      height: 10rem;
+      padding-bottom: -5rem;
+    }
+
+    .totalSum {
+      font-size: 3rem;
+    }
+
+    .currencyList {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .listItem {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+
+        .deleteButton {
+          cursor: pointer;
+          font-size: 2rem;
+          background-color: $warning-color-light;
+          padding: 1rem 2rem;
+
+          &:hover {
+            background-color: $warning-color;
+            border-radius: 10px;
+          }
+        }
+      }
+    }
+  }
+}
