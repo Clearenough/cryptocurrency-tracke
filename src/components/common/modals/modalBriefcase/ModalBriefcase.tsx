@@ -1,80 +1,61 @@
 import styles from './ModalBriefcase.module.scss';
 import shop from './../../../../assets/svg/briefcase.svg';
 import ControlButton from '../../buttons/controlButton/ControlButton';
-const mock = [
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 0,
-  },
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 2,
-  },
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 3,
-  },
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 4,
-  },
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 6,
-  },
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 7,
-  },
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 8,
-  },
-];
+import { useContext, useEffect, useState } from 'react';
+import { BriefcaseContext } from '../../../../context/briefcaseContext';
+import { numberParser } from '../../../../utils/numberParser';
+import { deleteCurrencyFromBriefcase } from '../../../../utils/deleteCurrencyFromBriefcase';
+import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../../../../@types/constants';
+import { IBriefcaseInfo } from '../../../../@types/common';
+import { CurrencyContext } from '../../../../context/currencyContext';
+import { totalBriefcaseSum } from '../../../../utils/briefcaseSumsInfo';
 
 interface IProps {
   close: (value: boolean) => void;
 }
 
 function ModalBriefcase({ close }: IProps) {
-  const summary = mock.reduce((acc, item) => {
-    return item.price * item.quantity;
-  }, 0);
+  const { briefcaseInfo, setBriefcaseInfo } = useContext(BriefcaseContext);
+  const { currencyInfo } = useContext(CurrencyContext);
+  const [deleteId, setDeleteId] = useState('');
+  const localStorageBriefcase = localStorage.getItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY);
+  const localStorageBriefcaseInfo: IBriefcaseInfo[] | undefined = localStorageBriefcase
+    ? JSON.parse(localStorageBriefcase)
+    : undefined;
+
+  useEffect(() => {
+    if (localStorageBriefcaseInfo) {
+      setBriefcaseInfo(localStorageBriefcaseInfo);
+    }
+  }, []);
 
   function deleteCurrency(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
+    const newBriefcaseCurrencyInfo = deleteCurrencyFromBriefcase(briefcaseInfo, deleteId);
+    localStorage.setItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY, JSON.stringify(newBriefcaseCurrencyInfo));
+    setBriefcaseInfo(newBriefcaseCurrencyInfo);
   }
+
+  const { currentBriefcaseSummary } = totalBriefcaseSum(briefcaseInfo, currencyInfo);
 
   return (
     <div className={styles.modal} onClick={() => close(false)}>
-      <div className={styles.modalContent}>
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <img className={styles.img} src={shop} alt="briefcase" />
-        <h2 className={styles.totalSum}>Total sum: ${summary}</h2>
+        <h2 className={styles.totalSum}>
+          Current total sum: ${numberParser(currentBriefcaseSummary.toString())}
+        </h2>
         <ul className={styles.currencyList}>
-          {mock.map((item) => (
+          {briefcaseInfo.map((item) => (
             <li key={item.id} className={styles.listItem}>
               <span>{item.name}</span>
-              <span>{'Price:' + item.price + '$'}</span>
-              <span>{'quantity:' + item.quantity}</span>
+              <span>{'Price:' + numberParser(item.priceUsd + '$')}</span>
+              <span>{'quantity:' + numberParser(item.quantity)}</span>
               <ControlButton
                 type={'DELETE'}
                 onClick={(e) => {
+                  setDeleteId(item.id);
                   deleteCurrency(e);
-                  console.log('click');
                 }}
               />
             </li>

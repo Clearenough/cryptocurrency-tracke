@@ -1,4 +1,9 @@
 import React from 'react';
-import { ICurrencyInfo } from '../@types/common';
+import { IBriefcaseContext } from '../@types/common';
 
-export const BriefcaseContext = React.createContext([]);
+export const BriefcaseContext = React.createContext<IBriefcaseContext>({
+  purchasePrice: '0',
+  briefcaseInfo: [],
+  setBriefcaseInfo: () => {},
+  setPurchasePrice: () => {},
+});

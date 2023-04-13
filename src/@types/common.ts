@@ -14,9 +14,19 @@ export interface ICurrencyInfo {
 }
 
 export interface ICurrencyHistory {
-  priceIsd: number;
+  priceIsd: string;
   time: number;
   date: string;
+}
+
+export interface ICurrencyForBriefcase {
+  id: string;
+  name: string;
+  priceUsd: string;
+}
+
+export interface IBriefcaseInfo extends ICurrencyForBriefcase {
+  quantity: string;
 }
 
 export interface IAPIResults {
@@ -27,6 +37,13 @@ export interface IAPIResults {
 export interface ICurrencyContext {
   currencyInfo: ICurrencyInfo[];
   setCurrencyInfo: (currencyInfo: ICurrencyInfo[]) => void;
+}
+
+export interface IBriefcaseContext {
+  purchasePrice: string;
+  briefcaseInfo: IBriefcaseInfo[];
+  setBriefcaseInfo: (currencyInfo: IBriefcaseInfo[]) => void;
+  setPurchasePrice: (price: string) => void;
 }
 
 export type Interval = 'h1' | 'd1' | 'm1';
