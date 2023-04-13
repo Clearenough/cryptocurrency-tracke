@@ -1,5 +1,6 @@
-export function numberParser(number: number): string {
+export function numberParser(value: string): string {
   let parsedNumber = '';
+  const number = parseFloat(value);
 
   switch (true) {
     case number >= 1e9 && number < 1e12:
