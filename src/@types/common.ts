@@ -22,3 +22,5 @@ export interface ICurrencyContext {
   currencyInfo: ICurrencyInfo[];
   setCurrencyInfo: (currencyInfo: ICurrencyInfo[]) => void;
 }
+
+export type Interval = 'h1' | 'd1' | 'm1';

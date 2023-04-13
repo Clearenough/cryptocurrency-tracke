@@ -12,7 +12,6 @@ import { useState } from 'react';
 
 function App() {
   const [currencyInfo, setCurrencyInfo] = useState<ICurrencyInfo[]>([]);
-
   return (
     <>
       <CurrencyContext.Provider
