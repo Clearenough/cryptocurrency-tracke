@@ -2,65 +2,6 @@ import { ICurrencyInfo } from '../../@types/common';
 import CurrencyTableRow from '../CurrencyTableRow/CurrencyTableRow';
 import styles from './CurrencyTable.module.scss';
 
-const tableData: ICurrencyInfo[] = [
-  {
-    changePercent24Hr: '3.528',
-    explorer: 'https://blockchain.info/',
-    id: 'bitcoin',
-    marketCapUsd: '5845',
-    maxSupply: '21000',
-    name: 'Bitcoin',
-    priceUsd: '30219',
-    rank: '1',
-    supply: '19342',
-    symbol: 'BTC',
-    volumeUsd24Hr: '77931',
-    vwap24Hr: '29891',
-  },
-  {
-    changePercent24Hr: '3.528',
-    explorer: 'https://blockchain.info/',
-    id: 'bitcoin',
-    marketCapUsd: '5845',
-    maxSupply: '21000',
-    name: 'Bitcoin',
-    priceUsd: '30219',
-    rank: '1',
-    supply: '19342',
-    symbol: 'BTC',
-    volumeUsd24Hr: '77931',
-    vwap24Hr: '29891',
-  },
-  {
-    changePercent24Hr: '3.528',
-    explorer: 'https://blockchain.info/',
-    id: 'bitcoin',
-    marketCapUsd: '5845',
-    maxSupply: '21000',
-    name: 'Bitcoin',
-    priceUsd: '30219',
-    rank: '1',
-    supply: '19342',
-    symbol: 'BTC',
-    volumeUsd24Hr: '77931',
-    vwap24Hr: '29891',
-  },
-  {
-    changePercent24Hr: '3.528',
-    explorer: 'https://blockchain.info/',
-    id: 'bitcoin',
-    marketCapUsd: '5845',
-    maxSupply: '21000',
-    name: 'Bitcoin',
-    priceUsd: '30219',
-    rank: '1',
-    supply: '19342',
-    symbol: 'BTC',
-    volumeUsd24Hr: '77931',
-    vwap24Hr: '29891',
-  },
-];
-
 interface ICurrencyTableProps {
   tableInfo: ICurrencyInfo[];
 }

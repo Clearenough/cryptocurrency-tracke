@@ -6,11 +6,21 @@ import NotFound from './pages/NotFound/NotFound';
 import './index.scss';
 import Footer from './components/Footer/Footer';
 import { BriefcaseContext } from './context/briefcaseContext';
+import { CurrencyContext } from './context/currencyContext';
+import { ICurrencyInfo } from './@types/common';
+import { useState } from 'react';
 
 function App() {
+  const [currencyInfo, setCurrencyInfo] = useState<ICurrencyInfo[]>([]);
+
   return (
     <>
-      <BriefcaseContext.Provider value={[]}>
+      <CurrencyContext.Provider
+        value={{
+          currencyInfo,
+          setCurrencyInfo,
+        }}
+      >
         <Header />
         <section>
           <div className="container">
@@ -23,7 +33,7 @@ function App() {
           </div>
         </section>
         <Footer />
-      </BriefcaseContext.Provider>
+      </CurrencyContext.Provider>
     </>
   );
 }

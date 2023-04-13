@@ -17,3 +17,8 @@ export interface IAPIResults {
   data: ICurrencyInfo[];
   timestamp: number;
 }
+
+export interface ICurrencyContext {
+  currencyInfo: ICurrencyInfo[];
+  setCurrencyInfo: (currencyInfo: ICurrencyInfo[]) => void;
+}
