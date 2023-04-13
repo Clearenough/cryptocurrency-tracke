@@ -13,6 +13,12 @@ export interface ICurrencyInfo {
   vwap24Hr: string;
 }
 
+export interface ICurrencyHistory {
+  priceIsd: number;
+  time: number;
+  date: string;
+}
+
 export interface IAPIResults {
   data: ICurrencyInfo[];
   timestamp: number;
