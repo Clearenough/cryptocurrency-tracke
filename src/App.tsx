@@ -7,11 +7,14 @@ import './index.scss';
 import Footer from './components/Footer/Footer';
 import { BriefcaseContext } from './context/briefcaseContext';
 import { CurrencyContext } from './context/currencyContext';
-import { ICurrencyInfo } from './@types/common';
+import { IBriefcaseInfo, ICurrencyInfo } from './@types/common';
 import { useState } from 'react';
 
 function App() {
   const [currencyInfo, setCurrencyInfo] = useState<ICurrencyInfo[]>([]);
+  const [briefcaseInfo, setBriefcaseInfo] = useState<IBriefcaseInfo[]>([]);
+  const [purchasePrice, setPurchasePrice] = useState<string>('');
+
   return (
     <>
       <CurrencyContext.Provider
@@ -20,18 +23,27 @@ function App() {
           setCurrencyInfo,
         }}
       >
-        <Header />
-        <section>
-          <div className="container">
-            <Routes>
-              <Route path="/" element={<Main />} />
-              <Route path="/info/:id" element={<Info />} />
-              <Route path="/404" element={<NotFound />} />
-              <Route path="*" element={<Navigate to={'/404'} />} />
-            </Routes>
-          </div>
-        </section>
-        <Footer />
+        <BriefcaseContext.Provider
+          value={{
+            briefcaseInfo,
+            setBriefcaseInfo,
+            purchasePrice,
+            setPurchasePrice,
+          }}
+        >
+          <Header />
+          <section>
+            <div className="container">
+              <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path="/info/:id" element={<Info />} />
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<Navigate to={'/404'} />} />
+              </Routes>
+            </div>
+          </section>
+          <Footer />
+        </BriefcaseContext.Provider>
       </CurrencyContext.Provider>
     </>
   );

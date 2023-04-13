@@ -1,59 +1,21 @@
 import styles from './ModalBriefcase.module.scss';
 import shop from './../../../../assets/svg/briefcase.svg';
 import ControlButton from '../../buttons/controlButton/ControlButton';
-const mock = [
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 0,
-  },
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 2,
-  },
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 3,
-  },
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 4,
-  },
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 6,
-  },
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 7,
-  },
-  {
-    name: 'asd',
-    price: 123,
-    quantity: 23,
-    id: 8,
-  },
-];
+import { useContext, useState } from 'react';
+import { BriefcaseContext } from '../../../../context/briefcaseContext';
+import { numberParser } from '../../../../utils/numberParser';
 
 interface IProps {
   close: (value: boolean) => void;
 }
 
 function ModalBriefcase({ close }: IProps) {
-  const summary = mock.reduce((acc, item) => {
-    return item.price * item.quantity;
+  const { briefcaseInfo, setBriefcaseInfo } = useContext(BriefcaseContext);
+  const summary = briefcaseInfo.reduce((acc, item) => {
+    return +item.priceUsd * +item.quantity + acc;
   }, 0);
+
+  console.log(briefcaseInfo, summary);
 
   function deleteCurrency(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
@@ -63,13 +25,13 @@ function ModalBriefcase({ close }: IProps) {
     <div className={styles.modal} onClick={() => close(false)}>
       <div className={styles.modalContent}>
         <img className={styles.img} src={shop} alt="briefcase" />
-        <h2 className={styles.totalSum}>Total sum: ${summary}</h2>
+        <h2 className={styles.totalSum}>Total sum: ${numberParser(summary.toString())}</h2>
         <ul className={styles.currencyList}>
-          {mock.map((item) => (
+          {briefcaseInfo.map((item) => (
             <li key={item.id} className={styles.listItem}>
               <span>{item.name}</span>
-              <span>{'Price:' + item.price + '$'}</span>
-              <span>{'quantity:' + item.quantity}</span>
+              <span>{'Price:' + numberParser(item.priceUsd + '$')}</span>
+              <span>{'quantity:' + numberParser(item.quantity)}</span>
               <ControlButton
                 type={'DELETE'}
                 onClick={(e) => {

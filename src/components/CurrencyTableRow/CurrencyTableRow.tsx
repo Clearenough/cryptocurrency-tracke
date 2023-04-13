@@ -14,8 +14,17 @@ function CurrencyTableRow({ currencyItem }: ICurrencyTableRowProps) {
   const [isModalAddCurrencyOpen, setIsModalAddCurrencyOpen] = useState(false);
   const navigate = useNavigate();
 
-  const { rank, name, priceUsd, changePercent24Hr, marketCapUsd, vwap24Hr, volumeUsd24Hr, supply } =
-    currencyItem;
+  const {
+    rank,
+    name,
+    priceUsd,
+    changePercent24Hr,
+    marketCapUsd,
+    vwap24Hr,
+    volumeUsd24Hr,
+    supply,
+    id,
+  } = currencyItem;
 
   const mockId = 'bitcoin';
 
@@ -50,7 +59,10 @@ function CurrencyTableRow({ currencyItem }: ICurrencyTableRowProps) {
         </td>
       </tr>
       {isModalAddCurrencyOpen && (
-        <ModalAddCurrency close={setIsModalAddCurrencyOpen} currencyInfo={currencyItem} />
+        <ModalAddCurrency
+          close={setIsModalAddCurrencyOpen}
+          currencyForBriefcase={{ id, name, priceUsd }}
+        />
       )}
     </>
   );

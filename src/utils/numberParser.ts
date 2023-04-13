@@ -3,7 +3,7 @@ export function numberParser(value: string): string {
   const number = parseFloat(value);
 
   switch (true) {
-    case number >= 1e9 && number < 1e12:
+    case number >= 1e9:
       parsedNumber = `${(number / 1e9).toFixed(1)}b`;
       break;
     case number >= 1e6:
