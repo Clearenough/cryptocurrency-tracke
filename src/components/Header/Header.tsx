@@ -1,17 +1,18 @@
 import styles from './Header.module.scss';
 import shop from './../../assets/svg/briefcase.svg';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import ModalBriefcase from '../common/modals/modalBriefcase/ModalBriefcase';
 import { CurrencyContext } from '../../context/currencyContext';
 import { numberParser } from '../../utils/numberParser';
 import { BriefcaseContext } from '../../context/briefcaseContext';
 import { totalBriefcaseSum } from '../../utils/briefcaseSumsInfo';
 import { briefcaseCurrencyDifference } from '../../utils/briefcaseCurrencyDiff';
+import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../../@types/constants';
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { currencyInfo } = useContext(CurrencyContext);
-  const { briefcaseInfo } = useContext(BriefcaseContext);
+  const { briefcaseInfo, setBriefcaseInfo } = useContext(BriefcaseContext);
   const { currentBriefcaseSummary, briefcaseSummary } = totalBriefcaseSum(
     briefcaseInfo,
     currencyInfo
@@ -19,6 +20,13 @@ function Header() {
   const percentDiff = briefcaseCurrencyDifference(currentBriefcaseSummary, briefcaseSummary);
   const absoluteDiff = currentBriefcaseSummary - briefcaseSummary;
   const popularCurrency = currencyInfo.slice(0, 3);
+
+  useEffect(() => {
+    const briefcaseLocalStorage = localStorage.getItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY);
+    if (briefcaseLocalStorage) {
+      setBriefcaseInfo(JSON.parse(briefcaseLocalStorage));
+    }
+  }, []);
 
   return (
     <header className={styles.header}>

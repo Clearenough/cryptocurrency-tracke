@@ -27,7 +27,7 @@ function ModalAddCurrency({ close, currencyForBriefcase }: IProps) {
       priceUsd
     );
     setBriefcaseInfo(newBriefcaseCurrencyInfo);
-    localStorage.setItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY, JSON.stringify(newBriefcaseCurrencyInfo));
+    // localStorage.setItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY, JSON.stringify(newBriefcaseCurrencyInfo));
     close(false);
   }
 

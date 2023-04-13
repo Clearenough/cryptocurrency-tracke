@@ -18,21 +18,10 @@ function ModalBriefcase({ close }: IProps) {
   const { briefcaseInfo, setBriefcaseInfo } = useContext(BriefcaseContext);
   const { currencyInfo } = useContext(CurrencyContext);
   const [deleteId, setDeleteId] = useState('');
-  const localStorageBriefcase = localStorage.getItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY);
-  const localStorageBriefcaseInfo: IBriefcaseInfo[] | undefined = localStorageBriefcase
-    ? JSON.parse(localStorageBriefcase)
-    : undefined;
-
-  useEffect(() => {
-    if (localStorageBriefcaseInfo) {
-      setBriefcaseInfo(localStorageBriefcaseInfo);
-    }
-  }, []);
 
   function deleteCurrency(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
     const newBriefcaseCurrencyInfo = deleteCurrencyFromBriefcase(briefcaseInfo, deleteId);
-    localStorage.setItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY, JSON.stringify(newBriefcaseCurrencyInfo));
     setBriefcaseInfo(newBriefcaseCurrencyInfo);
   }
 
