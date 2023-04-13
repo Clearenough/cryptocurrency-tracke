@@ -4,6 +4,7 @@ import ControlButton from '../../buttons/controlButton/ControlButton';
 import { useContext, useState } from 'react';
 import { BriefcaseContext } from '../../../../context/briefcaseContext';
 import { numberParser } from '../../../../utils/numberParser';
+import { deleteCurrencyFromBriefcase } from '../../../../utils/deleteCurrencyFromBriefcase';
 
 interface IProps {
   close: (value: boolean) => void;
@@ -11,6 +12,7 @@ interface IProps {
 
 function ModalBriefcase({ close }: IProps) {
   const { briefcaseInfo, setBriefcaseInfo } = useContext(BriefcaseContext);
+  const [deleteId, setDeleteId] = useState('');
   const summary = briefcaseInfo.reduce((acc, item) => {
     return +item.priceUsd * +item.quantity + acc;
   }, 0);
@@ -19,11 +21,13 @@ function ModalBriefcase({ close }: IProps) {
 
   function deleteCurrency(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
+    const newBriefcaseCurrencyInfo = deleteCurrencyFromBriefcase(briefcaseInfo, deleteId);
+    setBriefcaseInfo(newBriefcaseCurrencyInfo);
   }
 
   return (
     <div className={styles.modal} onClick={() => close(false)}>
-      <div className={styles.modalContent}>
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <img className={styles.img} src={shop} alt="briefcase" />
         <h2 className={styles.totalSum}>Total sum: ${numberParser(summary.toString())}</h2>
         <ul className={styles.currencyList}>
@@ -35,8 +39,8 @@ function ModalBriefcase({ close }: IProps) {
               <ControlButton
                 type={'DELETE'}
                 onClick={(e) => {
+                  setDeleteId(item.id);
                   deleteCurrency(e);
-                  console.log('click');
                 }}
               />
             </li>
