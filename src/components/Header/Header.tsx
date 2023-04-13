@@ -17,7 +17,6 @@ function Header() {
     currencyInfo
   );
   const percentDiff = briefcaseCurrencyDifference(currentBriefcaseSummary, briefcaseSummary);
-  console.log('percent diff', percentDiff);
   const absoluteDiff = currentBriefcaseSummary - briefcaseSummary;
   const popularCurrency = currencyInfo.slice(0, 3);
 

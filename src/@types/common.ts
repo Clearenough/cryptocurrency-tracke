@@ -40,10 +40,8 @@ export interface ICurrencyContext {
 }
 
 export interface IBriefcaseContext {
-  purchasePrice: string;
   briefcaseInfo: IBriefcaseInfo[];
   setBriefcaseInfo: (currencyInfo: IBriefcaseInfo[]) => void;
-  setPurchasePrice: (price: string) => void;
 }
 
 export type Interval = 'h1' | 'd1' | 'm1';
