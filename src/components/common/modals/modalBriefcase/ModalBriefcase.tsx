@@ -7,6 +7,8 @@ import { numberParser } from '../../../../utils/numberParser';
 import { deleteCurrencyFromBriefcase } from '../../../../utils/deleteCurrencyFromBriefcase';
 import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../../../../@types/constants';
 import { IBriefcaseInfo } from '../../../../@types/common';
+import { CurrencyContext } from '../../../../context/currencyContext';
+import { totalBriefcaseSum } from '../../../../utils/briefcaseSumsInfo';
 
 interface IProps {
   close: (value: boolean) => void;
@@ -14,6 +16,7 @@ interface IProps {
 
 function ModalBriefcase({ close }: IProps) {
   const { briefcaseInfo, setBriefcaseInfo } = useContext(BriefcaseContext);
+  const { currencyInfo } = useContext(CurrencyContext);
   const [deleteId, setDeleteId] = useState('');
   const localStorageBriefcase = localStorage.getItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY);
   const localStorageBriefcaseInfo: IBriefcaseInfo[] | undefined = localStorageBriefcase
@@ -26,10 +29,6 @@ function ModalBriefcase({ close }: IProps) {
     }
   }, []);
 
-  const summary = briefcaseInfo.reduce((acc, item) => {
-    return +item.priceUsd * +item.quantity + acc;
-  }, 0);
-
   function deleteCurrency(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
     const newBriefcaseCurrencyInfo = deleteCurrencyFromBriefcase(briefcaseInfo, deleteId);
@@ -37,11 +36,15 @@ function ModalBriefcase({ close }: IProps) {
     setBriefcaseInfo(newBriefcaseCurrencyInfo);
   }
 
+  const { currentBriefcaseSummary } = totalBriefcaseSum(briefcaseInfo, currencyInfo);
+
   return (
     <div className={styles.modal} onClick={() => close(false)}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <img className={styles.img} src={shop} alt="briefcase" />
-        <h2 className={styles.totalSum}>Total sum: ${numberParser(summary.toString())}</h2>
+        <h2 className={styles.totalSum}>
+          Current total sum: ${numberParser(currentBriefcaseSummary.toString())}
+        </h2>
         <ul className={styles.currencyList}>
           {briefcaseInfo.map((item) => (
             <li key={item.id} className={styles.listItem}>
