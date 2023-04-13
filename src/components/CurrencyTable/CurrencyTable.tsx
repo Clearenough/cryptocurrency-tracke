@@ -61,7 +61,11 @@ const tableData: ICurrencyInfo[] = [
   },
 ];
 
-function CurrencyTable() {
+interface ICurrencyTableProps {
+  tableInfo: ICurrencyInfo[];
+}
+
+function CurrencyTable({ tableInfo }: ICurrencyTableProps) {
   return (
     <table className={styles.table}>
       <thead className={styles.tableHeader}>
@@ -77,8 +81,8 @@ function CurrencyTable() {
         </tr>
       </thead>
       <tbody>
-        {tableData.map((item) => {
-          return <CurrencyTableRow key={item.id} {...item} />;
+        {tableInfo.map((item) => {
+          return <CurrencyTableRow key={item.id} currencyItem={item} />;
         })}
       </tbody>
     </table>

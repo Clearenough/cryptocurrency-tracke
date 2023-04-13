@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { IAPIResults, ICurrencyInfo } from '../../@types/common';
+import { ICurrencyInfo } from '../../@types/common';
+import { PAGE_SIZE, SIBLING_COUNT } from '../../@types/constants';
+import { fetchData } from '../../API/api';
 import CurrencyTable from '../../components/CurrencyTable/CurrencyTable';
 import Pagination from '../../components/Pagination/Pagination';
+import { tableInfo } from '../../utils/currentTableInfo';
 import styles from './Main.module.scss';
 
 function Main() {
   const [currencyInfo, setCurrencyInfo] = useState<ICurrencyInfo[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const PAGE_SIZE = 8;
-  const SIBLING_COUNT = 2;
 
   useEffect(() => {
     (async function () {
@@ -18,19 +18,9 @@ function Main() {
     })();
   }, []);
 
-  async function fetchData(): Promise<IAPIResults> {
-    const res = await fetch('https://api.coincap.io/v2/assets', {
-      headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_COINCAP_API_KEY}`,
-      },
-    });
-    const data: IAPIResults = await res.json();
-    return data;
-  }
-
   return (
     <div className={styles.container}>
-      <CurrencyTable />
+      <CurrencyTable tableInfo={tableInfo(currencyInfo, currentPage, PAGE_SIZE)} />
       <Pagination
         onPageChange={(x) => setCurrentPage(x)}
         currentPage={currentPage}

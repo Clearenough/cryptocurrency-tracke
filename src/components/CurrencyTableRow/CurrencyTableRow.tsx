@@ -5,12 +5,16 @@ import ControlButton from '../common/buttons/controlButton/ControlButton';
 import ModalAddCurrency from '../common/modals/modalAddCurrency/ModalAddCurrency';
 import styles from './CurrencyTableRow.module.scss';
 
-function CurrencyTableRow(currencyInfo: ICurrencyInfo) {
+interface ICurrencyTableRowProps {
+  currencyItem: ICurrencyInfo;
+}
+
+function CurrencyTableRow({ currencyItem }: ICurrencyTableRowProps) {
   const [isModalAddCurrencyOpen, setIsModalAddCurrencyOpen] = useState(false);
   const navigate = useNavigate();
 
   const { rank, name, priceUsd, changePercent24Hr, marketCapUsd, vwap24Hr, volumeUsd24Hr, supply } =
-    currencyInfo;
+    currencyItem;
 
   const mockId = 'bitcoin';
 
@@ -45,7 +49,7 @@ function CurrencyTableRow(currencyInfo: ICurrencyInfo) {
         </td>
       </tr>
       {isModalAddCurrencyOpen && (
-        <ModalAddCurrency close={setIsModalAddCurrencyOpen} currencyInfo={currencyInfo} />
+        <ModalAddCurrency close={setIsModalAddCurrencyOpen} currencyInfo={currencyItem} />
       )}
     </>
   );
