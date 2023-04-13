@@ -14,6 +14,7 @@ function App() {
   const [currencyInfo, setCurrencyInfo] = useState<ICurrencyInfo[]>([]);
   const [briefcaseInfo, setBriefcaseInfo] = useState<IBriefcaseInfo[]>([]);
   const [purchasePrice, setPurchasePrice] = useState<string>('');
+  console.log(purchasePrice);
 
   return (
     <>
