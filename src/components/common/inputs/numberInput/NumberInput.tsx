@@ -6,8 +6,6 @@ interface IProps {
 }
 
 function NumberInput({ value, ...props }: IProps) {
-  console.log('render');
-
   return (
     <input
       {...props}

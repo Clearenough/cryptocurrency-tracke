@@ -6,8 +6,6 @@ interface IProps {
 }
 
 function ControlButton({ type, ...props }: IProps) {
-  console.log('render');
-
   return (
     <button {...props} className={type === 'ADD' ? styles.addButton : styles.deleteButton}>
       {type === 'ADD' ? '+' : '-'}
