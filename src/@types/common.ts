@@ -12,3 +12,21 @@ export interface ICurrencyInfo {
   volumeUsd24Hr: string;
   vwap24Hr: string;
 }
+
+export interface ICurrencyHistory {
+  priceIsd: number;
+  time: number;
+  date: string;
+}
+
+export interface IAPIResults {
+  data: ICurrencyInfo[];
+  timestamp: number;
+}
+
+export interface ICurrencyContext {
+  currencyInfo: ICurrencyInfo[];
+  setCurrencyInfo: (currencyInfo: ICurrencyInfo[]) => void;
+}
+
+export type Interval = 'h1' | 'd1' | 'm1';

@@ -12,8 +12,6 @@ interface IProps {
 function Pagination({ onPageChange, totalCount, siblingCount, currentPage, pageSize }: IProps) {
   const paginationRange = usePagination({ currentPage, totalCount, siblingCount, pageSize });
 
-  console.log(totalCount, siblingCount, currentPage, pageSize);
-
   if (paginationRange) {
     const lastPage = paginationRange[paginationRange.length - 1];
     if (currentPage === 0 || paginationRange.length < 2) {

@@ -1,7 +1,7 @@
 import styles from './Header.module.scss';
 import shop from './../../assets/svg/briefcase.svg';
 import { useState } from 'react';
-import ModalBriefcase from '../common/modals/ModalBriefcase/ModalBriefcase';
+import ModalBriefcase from '../common/modals/modalBriefcase/ModalBriefcase';
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
