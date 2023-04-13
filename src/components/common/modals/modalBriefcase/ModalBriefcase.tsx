@@ -1,12 +1,10 @@
 import styles from './ModalBriefcase.module.scss';
 import shop from './../../../../assets/svg/briefcase.svg';
 import ControlButton from '../../buttons/controlButton/ControlButton';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { BriefcaseContext } from '../../../../context/briefcaseContext';
 import { numberParser } from '../../../../utils/numberParser';
 import { deleteCurrencyFromBriefcase } from '../../../../utils/deleteCurrencyFromBriefcase';
-import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../../../../@types/constants';
-import { IBriefcaseInfo } from '../../../../@types/common';
 import { CurrencyContext } from '../../../../context/currencyContext';
 import { totalBriefcaseSum } from '../../../../utils/briefcaseSumsInfo';
 
