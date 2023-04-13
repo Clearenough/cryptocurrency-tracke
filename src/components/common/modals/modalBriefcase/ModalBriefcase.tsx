@@ -1,12 +1,10 @@
 import styles from './ModalBriefcase.module.scss';
 import shop from './../../../../assets/svg/briefcase.svg';
 import ControlButton from '../../buttons/controlButton/ControlButton';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { BriefcaseContext } from '../../../../context/briefcaseContext';
 import { numberParser } from '../../../../utils/numberParser';
 import { deleteCurrencyFromBriefcase } from '../../../../utils/deleteCurrencyFromBriefcase';
-import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../../../../@types/constants';
-import { IBriefcaseInfo } from '../../../../@types/common';
 import { CurrencyContext } from '../../../../context/currencyContext';
 import { totalBriefcaseSum } from '../../../../utils/briefcaseSumsInfo';
 
@@ -18,21 +16,10 @@ function ModalBriefcase({ close }: IProps) {
   const { briefcaseInfo, setBriefcaseInfo } = useContext(BriefcaseContext);
   const { currencyInfo } = useContext(CurrencyContext);
   const [deleteId, setDeleteId] = useState('');
-  const localStorageBriefcase = localStorage.getItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY);
-  const localStorageBriefcaseInfo: IBriefcaseInfo[] | undefined = localStorageBriefcase
-    ? JSON.parse(localStorageBriefcase)
-    : undefined;
-
-  useEffect(() => {
-    if (localStorageBriefcaseInfo) {
-      setBriefcaseInfo(localStorageBriefcaseInfo);
-    }
-  }, []);
 
   function deleteCurrency(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
     const newBriefcaseCurrencyInfo = deleteCurrencyFromBriefcase(briefcaseInfo, deleteId);
-    localStorage.setItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY, JSON.stringify(newBriefcaseCurrencyInfo));
     setBriefcaseInfo(newBriefcaseCurrencyInfo);
   }
 
