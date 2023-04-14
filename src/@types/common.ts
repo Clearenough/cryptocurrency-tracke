@@ -44,9 +44,29 @@ export interface ICurrencyContext {
   setCurrencyInfo: (currencyInfo: ICurrencyInfo[]) => void;
 }
 
-export interface IBriefcaseContext {
+export interface IBriefcaseState {
   briefcaseInfo: IBriefcaseInfo[];
-  setBriefcaseInfo: (currencyInfo: IBriefcaseInfo[]) => void;
+  loading: boolean;
+  errors: string[];
+}
+
+export interface IBriefcaseContext {
+  briefcaseState: IBriefcaseState;
+  briefcaseDispatch: React.Dispatch<IBriefcaseAction>;
+}
+
+export interface IBriefcaseAction {
+  type: BriefcaseActionType;
+  payload: {
+    currency?: ICurrencyForBriefcase;
+    currencyId?: string;
+    quantity?: number;
+  };
 }
 
 export type Interval = 'h1' | 'd1' | 'm1';
+
+export enum BriefcaseActionType {
+  ADD,
+  REMOVE,
+}

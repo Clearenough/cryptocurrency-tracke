@@ -1,8 +1,8 @@
+import { useParams } from 'react-router-dom';
+
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { BriefcaseContext } from '../../context/briefcaseContext';
 import { CurrencyContext } from '../../context/currencyContext';
-
-import { useParams } from 'react-router-dom';
 
 import { fetchHistory } from '../../API/api';
 
@@ -10,8 +10,7 @@ import ControlButton from '../../components/common/buttons/controlButton/Control
 import CurrencyHistoryChart from '../../components/common/charts/currencyHistoryChart/CurrencyHistoryChart';
 import NumberInput from '../../components/common/inputs/numberInput/NumberInput';
 
-import { ICurrencyHistory } from '../../@types/common';
-import { addCurrencyToBriefcase } from '../../utils/addCurrencyToBriefcase';
+import { BriefcaseActionType, ICurrencyHistory } from '../../@types/common';
 import { maxAndMinPrices } from '../../utils/maxAndMinPrices';
 import { numberParser } from '../../utils/numberParser';
 
@@ -22,31 +21,31 @@ function Info() {
   const [currencyHistory, setCurrencyHistory] = useState<ICurrencyHistory[]>([]);
   const [value, setValue] = useState('0');
   const { currencyInfo } = useContext(CurrencyContext);
-  const { briefcaseInfo, setBriefcaseInfo } = useContext(BriefcaseContext);
+  const { briefcaseDispatch } = useContext(BriefcaseContext);
 
   const currency = currencyInfo.find((item) => item.id === id);
 
   useEffect(() => {
-    (async function () {
+    const fetch = async () => {
       if (id) {
         const res = await fetchHistory(id, 'd1');
         setCurrencyHistory(res.data);
       }
-    })();
+    };
+    fetch();
   }, []);
 
   const onCurrencyAdd = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (id && currency) {
-        const newBriefcaseCurrencyInfo = addCurrencyToBriefcase(
-          briefcaseInfo,
-          id,
-          value,
-          currency.name,
-          currency.priceUsd
-        );
-        setBriefcaseInfo(newBriefcaseCurrencyInfo);
+        briefcaseDispatch({
+          type: BriefcaseActionType.ADD,
+          payload: {
+            currency: { id, name: currency.name, priceUsd: currency.priceUsd },
+            quantity: +value,
+          },
+        });
       }
     },
     [id, currency]
