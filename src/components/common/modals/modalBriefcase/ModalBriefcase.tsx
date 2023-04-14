@@ -1,11 +1,9 @@
 import { useContext } from 'react';
 import { BriefcaseContext } from '../../../../context/briefcaseContext';
-import { CurrencyContext } from '../../../../context/currencyContext';
 
 import ControlButton from '../../buttons/controlButton/ControlButton';
 
 import { numberParser } from '../../../../utils/numberParser';
-import { totalBriefcaseSum } from '../../../../utils/briefcaseSumsInfo';
 
 import shop from './../../../../assets/svg/briefcase.svg';
 
@@ -13,12 +11,12 @@ import styles from './ModalBriefcase.module.scss';
 import { BriefcaseActionType } from '../../../../@types/common';
 
 interface IModalBriefcaseProps {
+  currentPrice: number;
   close: (value: boolean) => void;
 }
 
-function ModalBriefcase({ close }: IModalBriefcaseProps) {
+function ModalBriefcase({ close, currentPrice }: IModalBriefcaseProps) {
   const { briefcaseState, briefcaseDispatch } = useContext(BriefcaseContext);
-  const { currencyInfo } = useContext(CurrencyContext);
 
   const deleteCurrency = (id: string) => {
     briefcaseDispatch({
@@ -29,14 +27,12 @@ function ModalBriefcase({ close }: IModalBriefcaseProps) {
     });
   };
 
-  const { currentBriefcaseSummary } = totalBriefcaseSum(briefcaseState.briefcaseInfo, currencyInfo);
-
   return (
     <div className={styles.modal} onClick={() => close(false)}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <img className={styles.img} src={shop} alt="briefcase" />
         <h2 className={styles.totalSum}>
-          Current total sum: ${numberParser(currentBriefcaseSummary.toString())}
+          Current total sum: ${numberParser(currentPrice.toString())}
         </h2>
         <ul className={styles.currencyList}>
           {briefcaseState.briefcaseInfo.map((item) => (

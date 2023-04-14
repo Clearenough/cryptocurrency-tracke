@@ -1,28 +1,35 @@
 import { useContext, useEffect, useState } from 'react';
 import { BriefcaseContext } from '../../context/briefcaseContext';
-import { CurrencyContext } from '../../context/currencyContext';
+
+import { fetchCurrencyInfo, fetchTopThreeCurrency } from '../../API/api';
 
 import ModalBriefcase from '../common/modals/modalBriefcase/ModalBriefcase';
 
 import { numberParser } from '../../utils/numberParser';
 import { briefcaseCurrencyDifference } from '../../utils/briefcaseCurrencyDiff';
+import { IAPICurrency, ICurrencyInfo } from '../../@types/common';
 
 import shop from './../../assets/svg/briefcase.svg';
 
 import styles from './Header.module.scss';
-import { fetchCurrencyInfo } from '../../API/api';
-import { IAPICurrency } from '../../@types/common';
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [percentDiff, setPercentDiff] = useState(0);
   const [absoluteDiff, setAbsoluteDiff] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(0);
-  const { currencyInfo } = useContext(CurrencyContext);
   const { briefcaseState } = useContext(BriefcaseContext);
-  const popularCurrency = currencyInfo.slice(0, 3);
+  const [topThreeCurrency, setTopThreeCurrency] = useState<ICurrencyInfo[]>([]);
 
   const showPlus = absoluteDiff >= 0 ? '+' : '';
+
+  useEffect(() => {
+    const fetchPopularCurrency = async () => {
+      const res = await fetchTopThreeCurrency();
+      setTopThreeCurrency(res.data);
+    };
+    fetchPopularCurrency();
+  });
 
   useEffect(() => {
     const fetchCurrency = async () => {
@@ -56,7 +63,7 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         <ul className={styles.currencyList}>
-          {popularCurrency.map((currency) => (
+          {topThreeCurrency.map((currency) => (
             <li key={currency.id}>{`${currency.name}: ${numberParser(currency.priceUsd)}$`}</li>
           ))}
         </ul>
@@ -73,7 +80,7 @@ function Header() {
             )}(${numberParser(percentDiff.toString())} %)`}
           </span>
         </div>
-        {isModalOpen && <ModalBriefcase close={setIsModalOpen} />}
+        {isModalOpen && <ModalBriefcase close={setIsModalOpen} currentPrice={currentPrice} />}
       </div>
     </header>
   );

@@ -2,15 +2,14 @@ import { useParams } from 'react-router-dom';
 
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { BriefcaseContext } from '../../context/briefcaseContext';
-import { CurrencyContext } from '../../context/currencyContext';
 
-import { fetchHistory } from '../../API/api';
+import { fetchCurrencyInfo, fetchHistory } from '../../API/api';
 
 import ControlButton from '../../components/common/buttons/controlButton/ControlButton';
 import CurrencyHistoryChart from '../../components/common/charts/currencyHistoryChart/CurrencyHistoryChart';
 import NumberInput from '../../components/common/inputs/numberInput/NumberInput';
 
-import { BriefcaseActionType, ICurrencyHistory } from '../../@types/common';
+import { BriefcaseActionType, ICurrencyHistory, ICurrencyInfo } from '../../@types/common';
 import { maxAndMinPrices } from '../../utils/maxAndMinPrices';
 import { numberParser } from '../../utils/numberParser';
 
@@ -19,17 +18,18 @@ import styles from './Info.module.scss';
 function Info() {
   const { id } = useParams();
   const [currencyHistory, setCurrencyHistory] = useState<ICurrencyHistory[]>([]);
+  const [currency, setCurrency] = useState<ICurrencyInfo>();
   const [value, setValue] = useState('0');
-  const { currencyInfo } = useContext(CurrencyContext);
   const { briefcaseDispatch } = useContext(BriefcaseContext);
-
-  const currency = currencyInfo.find((item) => item.id === id);
 
   useEffect(() => {
     const fetch = async () => {
       if (id) {
-        const res = await fetchHistory(id, 'd1');
-        setCurrencyHistory(res.data);
+        const historyRes = await fetchHistory(id, 'd1');
+        setCurrencyHistory(historyRes.data);
+
+        const currencyRes = await fetchCurrencyInfo(id);
+        setCurrency(currencyRes.data);
       }
     };
     fetch();

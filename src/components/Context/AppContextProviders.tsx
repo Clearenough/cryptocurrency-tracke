@@ -1,20 +1,17 @@
-import { useMemo, useReducer, useState } from 'react';
-import { IBriefcaseInfo, ICurrencyInfo } from '../../@types/common';
+import { useMemo, useReducer } from 'react';
+import { IBriefcaseInfo } from '../../@types/common';
 import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../../@types/constants';
 import {
   BriefcaseContext,
   briefcaseStateInitialValue,
   briefcaseReducer,
 } from '../../context/briefcaseContext';
-import { CurrencyContext } from '../../context/currencyContext';
 
 interface IAppContextProvidersProps {
   children: React.ReactNode;
 }
 
 function AppContextProviders({ children }: IAppContextProvidersProps) {
-  const [currencyInfo, setCurrencyInfo] = useState<ICurrencyInfo[]>([]);
-
   const localStorageBriefcaseValue = useMemo(() => {
     const localStorageValue = localStorage.getItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY);
     let result: IBriefcaseInfo[] = [];
@@ -30,21 +27,14 @@ function AppContextProviders({ children }: IAppContextProvidersProps) {
   });
 
   return (
-    <CurrencyContext.Provider
+    <BriefcaseContext.Provider
       value={{
-        currencyInfo,
-        setCurrencyInfo,
+        briefcaseState: state,
+        briefcaseDispatch: dispatch,
       }}
     >
-      <BriefcaseContext.Provider
-        value={{
-          briefcaseState: state,
-          briefcaseDispatch: dispatch,
-        }}
-      >
-        {children}
-      </BriefcaseContext.Provider>
-    </CurrencyContext.Provider>
+      {children}
+    </BriefcaseContext.Provider>
   );
 }
 
