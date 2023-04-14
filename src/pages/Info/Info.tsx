@@ -2,7 +2,11 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ICurrencyHistory } from '../../@types/common';
 import { fetchHistory } from '../../API/api';
+import ControlButton from '../../components/common/buttons/controlButton/ControlButton';
+import NumberInput from '../../components/common/inputs/numberInput/NumberInput';
+import { BriefcaseContext } from '../../context/briefcaseContext';
 import { CurrencyContext } from '../../context/currencyContext';
+import { addCurrencyToBriefcase } from '../../utils/addCurrencyToBriefcase';
 import { maxAndMinPrices } from '../../utils/maxAndMinPrices';
 import { numberParser } from '../../utils/numberParser';
 import styles from './Info.module.scss';
@@ -10,7 +14,9 @@ import styles from './Info.module.scss';
 function Info() {
   const { id } = useParams();
   const [currencyHistory, setCurrencyHistory] = useState<ICurrencyHistory[]>([]);
+  const [value, setValue] = useState('0');
   const { currencyInfo } = useContext(CurrencyContext);
+  const { briefcaseInfo, setBriefcaseInfo } = useContext(BriefcaseContext);
 
   const currency = currencyInfo.find((item) => item.id === id);
 
@@ -22,6 +28,20 @@ function Info() {
       }
     })();
   }, []);
+
+  function onCurrencyAdd(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    if (id && currency) {
+      const newBriefcaseCurrencyInfo = addCurrencyToBriefcase(
+        briefcaseInfo,
+        id,
+        value,
+        currency.name,
+        currency.priceUsd
+      );
+      setBriefcaseInfo(newBriefcaseCurrencyInfo);
+    }
+  }
 
   const { maxPrice, minPrice } = maxAndMinPrices(currencyHistory);
   console.log(maxPrice, minPrice);
@@ -43,6 +63,10 @@ function Info() {
           <li>{`Min Price: ${numberParser(minPrice.toString())}`}</li>
         </ul>
       )}
+      <form className={styles.form}>
+        <NumberInput onChange={(e) => setValue(e.target.value)} value={value} />
+        <ControlButton type="ADD" onClick={(e) => onCurrencyAdd(e)} />
+      </form>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { IAPICurrencyHistory, IAPIResults, ICurrencyHistory, Interval } from '../@types/common';
+import { IAPICurrencyHistory, IAPIResults, Interval } from '../@types/common';
 import { API_URL } from '../@types/constants';
 
 export async function fetchData(): Promise<IAPIResults> {
