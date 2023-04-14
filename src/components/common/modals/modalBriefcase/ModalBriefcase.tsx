@@ -11,6 +11,7 @@ import { totalBriefcaseSum } from '../../../../utils/briefcaseSumsInfo';
 import shop from './../../../../assets/svg/briefcase.svg';
 
 import styles from './ModalBriefcase.module.scss';
+import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../../../../@types/constants';
 
 interface IModalBriefcaseProps {
   close: (value: boolean) => void;
@@ -25,6 +26,10 @@ function ModalBriefcase({ close }: IModalBriefcaseProps) {
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       e.preventDefault();
       const newBriefcaseCurrencyInfo = deleteCurrencyFromBriefcase(briefcaseInfo, deleteId);
+      localStorage.setItem(
+        LOCALSTORAGE_BRIEFCASE_INFO_KEY,
+        JSON.stringify(newBriefcaseCurrencyInfo)
+      );
       setBriefcaseInfo(newBriefcaseCurrencyInfo);
     },
     [deleteId]

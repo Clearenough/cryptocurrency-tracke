@@ -8,6 +8,7 @@ import { addCurrencyToBriefcase } from '../../../../utils/addCurrencyToBriefcase
 import { ICurrencyForBriefcase } from '../../../../@types/common';
 
 import styles from './ModalAddCurrency.module.scss';
+import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../../../../@types/constants';
 
 interface IModalAddCurrencyProps {
   close: (value: boolean) => void;
@@ -29,6 +30,7 @@ function ModalAddCurrency({ close, currencyForBriefcase }: IModalAddCurrencyProp
       priceUsd
     );
     setBriefcaseInfo(newBriefcaseCurrencyInfo);
+    localStorage.setItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY, JSON.stringify(newBriefcaseCurrencyInfo));
     close(false);
   }
 

@@ -1,17 +1,22 @@
 import { IAPICurrencyHistory, IAPIResults, Interval } from '../@types/common';
-import { API_URL } from '../@types/constants';
+import { API_URL, PAGE_LIMIT, PAGE_SIZE } from '../@types/constants';
 
 export async function fetchData(): Promise<IAPIResults> {
-  console.log('fetch');
-  const res = await fetch(`${API_URL}`, {
+  const res = await fetch(`${API_URL}?limit=${PAGE_SIZE * PAGE_LIMIT}`, {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_COINCAP_API_KEY}`,
     },
   });
-  console.log(res);
-  const data: IAPIResults = await res.json();
-  console.log(data);
-  return data;
+  return res.json();
+}
+
+export async function fetchTableInfo(offset: number): Promise<IAPIResults> {
+  const res = await fetch(`${API_URL}?offset=${offset}&limit=${PAGE_SIZE}`, {
+    headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_COINCAP_API_KEY}`,
+    },
+  });
+  return res.json();
 }
 
 export async function fetchHistory(id: string, interval: Interval): Promise<IAPICurrencyHistory> {
