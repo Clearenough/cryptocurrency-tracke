@@ -1,15 +1,20 @@
 import { useContext, useEffect, useState } from 'react';
+import { BriefcaseContext } from '../../context/briefcaseContext';
+import { CurrencyContext } from '../../context/currencyContext';
+
 import { useParams } from 'react-router-dom';
-import { ICurrencyHistory } from '../../@types/common';
+
 import { fetchHistory } from '../../API/api';
+
 import ControlButton from '../../components/common/buttons/controlButton/ControlButton';
 import CurrencyHistoryChart from '../../components/common/charts/currencyHistoryChart/CurrencyHistoryChart';
 import NumberInput from '../../components/common/inputs/numberInput/NumberInput';
-import { BriefcaseContext } from '../../context/briefcaseContext';
-import { CurrencyContext } from '../../context/currencyContext';
+
+import { ICurrencyHistory } from '../../@types/common';
 import { addCurrencyToBriefcase } from '../../utils/addCurrencyToBriefcase';
 import { maxAndMinPrices } from '../../utils/maxAndMinPrices';
 import { numberParser } from '../../utils/numberParser';
+
 import styles from './Info.module.scss';
 
 function Info() {

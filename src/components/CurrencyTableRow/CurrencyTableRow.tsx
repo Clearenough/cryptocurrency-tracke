@@ -1,9 +1,13 @@
 import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
-import { ICurrencyInfo } from '../../@types/common';
-import { numberParser } from '../../utils/numberParser';
+
 import ControlButton from '../common/buttons/controlButton/ControlButton';
 import ModalAddCurrency from '../common/modals/modalAddCurrency/ModalAddCurrency';
+
+import { ICurrencyInfo } from '../../@types/common';
+import { numberParser } from '../../utils/numberParser';
+
 import styles from './CurrencyTableRow.module.scss';
 
 interface ICurrencyTableRowProps {
