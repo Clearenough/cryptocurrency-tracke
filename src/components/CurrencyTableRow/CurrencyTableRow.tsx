@@ -26,10 +26,8 @@ function CurrencyTableRow({ currencyItem }: ICurrencyTableRowProps) {
     id,
   } = currencyItem;
 
-  const mockId = 'bitcoin';
-
-  function openInfo(mockId: string): void {
-    navigate(`/info/${mockId}`);
+  function openInfo(): void {
+    navigate(`/info/${id}`);
   }
 
   function openModal(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -40,7 +38,7 @@ function CurrencyTableRow({ currencyItem }: ICurrencyTableRowProps) {
 
   return (
     <>
-      <tr className={styles.tableRow} onClick={() => openInfo(mockId)}>
+      <tr className={styles.tableRow} onClick={openInfo}>
         <td className={styles.tableCell}>{rank}</td>
         <td className={styles.tableCell}>{name}</td>
         <td className={styles.tableCell}>{numberParser(priceUsd)}</td>

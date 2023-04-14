@@ -14,7 +14,7 @@ export interface ICurrencyInfo {
 }
 
 export interface ICurrencyHistory {
-  priceIsd: string;
+  priceUsd: string;
   time: number;
   date: string;
 }
@@ -31,6 +31,11 @@ export interface IBriefcaseInfo extends ICurrencyForBriefcase {
 
 export interface IAPIResults {
   data: ICurrencyInfo[];
+  timestamp: number;
+}
+
+export interface IAPICurrencyHistory {
+  data: ICurrencyHistory[];
   timestamp: number;
 }
 
