@@ -1,17 +1,20 @@
 import React, { useContext, useState } from 'react';
-import { ICurrencyForBriefcase } from '../../../../@types/common';
 import { BriefcaseContext } from '../../../../context/briefcaseContext';
-import { addCurrencyToBriefcase } from '../../../../utils/addCurrencyToBriefcase';
+
 import ControlButton from '../../buttons/controlButton/ControlButton';
 import NumberInput from '../../inputs/numberInput/NumberInput';
+
+import { addCurrencyToBriefcase } from '../../../../utils/addCurrencyToBriefcase';
+import { ICurrencyForBriefcase } from '../../../../@types/common';
+
 import styles from './ModalAddCurrency.module.scss';
 
-interface IProps {
+interface IModalAddCurrencyProps {
   close: (value: boolean) => void;
   currencyForBriefcase: ICurrencyForBriefcase;
 }
 
-function ModalAddCurrency({ close, currencyForBriefcase }: IProps) {
+function ModalAddCurrency({ close, currencyForBriefcase }: IModalAddCurrencyProps) {
   const [value, setValue] = useState('0');
   const { briefcaseInfo, setBriefcaseInfo } = useContext(BriefcaseContext);
   const { id, name, priceUsd } = currencyForBriefcase;

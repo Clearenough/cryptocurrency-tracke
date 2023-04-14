@@ -1,5 +1,7 @@
-import { ICurrencyInfo } from '../../@types/common';
 import CurrencyTableRow from '../CurrencyTableRow/CurrencyTableRow';
+
+import { ICurrencyInfo } from '../../@types/common';
+
 import styles from './CurrencyTable.module.scss';
 
 interface ICurrencyTableProps {

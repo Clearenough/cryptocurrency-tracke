@@ -1,7 +1,10 @@
+import classNames from 'classnames';
+
 import { DOTS, usePagination } from '../../hooks/usePagination';
+
 import styles from './Pagination.module.scss';
 
-interface IProps {
+interface IPaginationProps {
   onPageChange: (page: number) => void;
   totalCount: number;
   siblingCount: number;
@@ -9,7 +12,13 @@ interface IProps {
   pageSize: number;
 }
 
-function Pagination({ onPageChange, totalCount, siblingCount, currentPage, pageSize }: IProps) {
+function Pagination({
+  onPageChange,
+  totalCount,
+  siblingCount,
+  currentPage,
+  pageSize,
+}: IPaginationProps) {
   const paginationRange = usePagination({ currentPage, totalCount, siblingCount, pageSize });
 
   if (paginationRange) {
@@ -28,19 +37,28 @@ function Pagination({ onPageChange, totalCount, siblingCount, currentPage, pageS
 
   const totalAmountOfPages = Math.ceil(totalCount / pageSize);
 
+  const controlLeftBtnActiveClass = classNames([
+    styles.left,
+    styles.indicator,
+    { [styles.inactive]: currentPage === 1 },
+  ]);
+  const dotsClass = classNames([styles.dotsIndicator, styles.indicator]);
+  const controlRightBtnActiveClass = classNames([
+    styles.right,
+    styles.indicator,
+    { [styles.inactive]: currentPage === totalAmountOfPages },
+  ]);
+
   return (
     <ul className={styles.paginationBar}>
-      <li
-        className={`${styles.left} ${styles.indicator} ${currentPage === 1 ? styles.inactive : ''}`}
-        onClick={onPrevious}
-      >
+      <li className={controlLeftBtnActiveClass} onClick={onPrevious}>
         {'<'}
       </li>
       {paginationRange &&
         paginationRange.map((pageNumber, index) => {
           if (pageNumber === DOTS) {
             return (
-              <li className={[styles.dotsIndicator, styles.indicator].join(' ')} key={index}>
+              <li className={dotsClass} key={index}>
                 &#8230;
               </li>
             );
@@ -48,9 +66,11 @@ function Pagination({ onPageChange, totalCount, siblingCount, currentPage, pageS
 
           return (
             <li
-              className={`${styles.pageIndicator} ${styles.indicator} ${
-                pageNumber === currentPage ? styles.active : ''
-              }`}
+              className={classNames([
+                styles.pageIndicator,
+                styles.indicator,
+                { [styles.inactive]: pageNumber === currentPage },
+              ])}
               onClick={() => onPageChange(Number(pageNumber))}
               key={index}
             >
@@ -59,12 +79,7 @@ function Pagination({ onPageChange, totalCount, siblingCount, currentPage, pageS
           );
         })}
 
-      <li
-        className={`${styles.right} ${styles.indicator} ${
-          currentPage === totalAmountOfPages ? styles.inactive : ''
-        }`}
-        onClick={onNext}
-      >
+      <li className={controlRightBtnActiveClass} onClick={onNext}>
         {'>'}
       </li>
     </ul>

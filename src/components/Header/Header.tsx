@@ -1,13 +1,17 @@
-import styles from './Header.module.scss';
-import shop from './../../assets/svg/briefcase.svg';
 import { useContext, useEffect, useState } from 'react';
-import ModalBriefcase from '../common/modals/modalBriefcase/ModalBriefcase';
-import { CurrencyContext } from '../../context/currencyContext';
-import { numberParser } from '../../utils/numberParser';
 import { BriefcaseContext } from '../../context/briefcaseContext';
+import { CurrencyContext } from '../../context/currencyContext';
+
+import ModalBriefcase from '../common/modals/modalBriefcase/ModalBriefcase';
+
+import { numberParser } from '../../utils/numberParser';
 import { totalBriefcaseSum } from '../../utils/briefcaseSumsInfo';
 import { briefcaseCurrencyDifference } from '../../utils/briefcaseCurrencyDiff';
 import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../../@types/constants';
+
+import shop from './../../assets/svg/briefcase.svg';
+
+import styles from './Header.module.scss';
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);

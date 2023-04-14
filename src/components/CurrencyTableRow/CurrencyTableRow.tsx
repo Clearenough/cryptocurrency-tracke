@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
-import { ICurrencyInfo } from '../../@types/common';
-import { numberParser } from '../../utils/numberParser';
+
 import ControlButton from '../common/buttons/controlButton/ControlButton';
 import ModalAddCurrency from '../common/modals/modalAddCurrency/ModalAddCurrency';
+
+import { ICurrencyInfo } from '../../@types/common';
+import { numberParser } from '../../utils/numberParser';
+
 import styles from './CurrencyTableRow.module.scss';
 
 interface ICurrencyTableRowProps {
@@ -26,15 +30,18 @@ function CurrencyTableRow({ currencyItem }: ICurrencyTableRowProps) {
     id,
   } = currencyItem;
 
-  function openInfo(): void {
+  const openInfo = useCallback((): void => {
     navigate(`/info/${id}`);
-  }
+  }, [currencyItem]);
 
-  function openModal(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsModalAddCurrencyOpen(true);
-  }
+  const openModal = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsModalAddCurrencyOpen(true);
+    },
+    [currencyItem]
+  );
 
   return (
     <>

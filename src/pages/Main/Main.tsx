@@ -1,10 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
-import { PAGE_SIZE, SIBLING_COUNT } from '../../@types/constants';
+import { CurrencyContext } from '../../context/currencyContext';
+
 import { fetchData } from '../../API/api';
+
 import CurrencyTable from '../../components/CurrencyTable/CurrencyTable';
 import Pagination from '../../components/Pagination/Pagination';
-import { CurrencyContext } from '../../context/currencyContext';
+
 import { tableInfo } from '../../utils/currentTableInfo';
+import { PAGE_SIZE, SIBLING_COUNT } from '../../@types/constants';
+
 import styles from './Main.module.scss';
 
 function Main() {

@@ -1,27 +1,34 @@
-import styles from './ModalBriefcase.module.scss';
-import shop from './../../../../assets/svg/briefcase.svg';
-import ControlButton from '../../buttons/controlButton/ControlButton';
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { BriefcaseContext } from '../../../../context/briefcaseContext';
+import { CurrencyContext } from '../../../../context/currencyContext';
+
+import ControlButton from '../../buttons/controlButton/ControlButton';
+
 import { numberParser } from '../../../../utils/numberParser';
 import { deleteCurrencyFromBriefcase } from '../../../../utils/deleteCurrencyFromBriefcase';
-import { CurrencyContext } from '../../../../context/currencyContext';
 import { totalBriefcaseSum } from '../../../../utils/briefcaseSumsInfo';
 
-interface IProps {
+import shop from './../../../../assets/svg/briefcase.svg';
+
+import styles from './ModalBriefcase.module.scss';
+
+interface IModalBriefcaseProps {
   close: (value: boolean) => void;
 }
 
-function ModalBriefcase({ close }: IProps) {
+function ModalBriefcase({ close }: IModalBriefcaseProps) {
   const { briefcaseInfo, setBriefcaseInfo } = useContext(BriefcaseContext);
   const { currencyInfo } = useContext(CurrencyContext);
   const [deleteId, setDeleteId] = useState('');
 
-  function deleteCurrency(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.preventDefault();
-    const newBriefcaseCurrencyInfo = deleteCurrencyFromBriefcase(briefcaseInfo, deleteId);
-    setBriefcaseInfo(newBriefcaseCurrencyInfo);
-  }
+  const deleteCurrency = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault();
+      const newBriefcaseCurrencyInfo = deleteCurrencyFromBriefcase(briefcaseInfo, deleteId);
+      setBriefcaseInfo(newBriefcaseCurrencyInfo);
+    },
+    [deleteId]
+  );
 
   const { currentBriefcaseSummary } = totalBriefcaseSum(briefcaseInfo, currencyInfo);
 

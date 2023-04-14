@@ -1,15 +1,20 @@
-import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { ICurrencyHistory } from '../../@types/common';
-import { fetchHistory } from '../../API/api';
-import ControlButton from '../../components/common/buttons/controlButton/ControlButton';
-import CurrencyHistoryChart from '../../components/common/charts/currencyHistoryChart/currencyHistoryChart';
-import NumberInput from '../../components/common/inputs/numberInput/NumberInput';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { BriefcaseContext } from '../../context/briefcaseContext';
 import { CurrencyContext } from '../../context/currencyContext';
+
+import { useParams } from 'react-router-dom';
+
+import { fetchHistory } from '../../API/api';
+
+import ControlButton from '../../components/common/buttons/controlButton/ControlButton';
+import CurrencyHistoryChart from '../../components/common/charts/currencyHistoryChart/CurrencyHistoryChart';
+import NumberInput from '../../components/common/inputs/numberInput/NumberInput';
+
+import { ICurrencyHistory } from '../../@types/common';
 import { addCurrencyToBriefcase } from '../../utils/addCurrencyToBriefcase';
 import { maxAndMinPrices } from '../../utils/maxAndMinPrices';
 import { numberParser } from '../../utils/numberParser';
+
 import styles from './Info.module.scss';
 
 function Info() {
@@ -30,19 +35,22 @@ function Info() {
     })();
   }, []);
 
-  function onCurrencyAdd(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    if (id && currency) {
-      const newBriefcaseCurrencyInfo = addCurrencyToBriefcase(
-        briefcaseInfo,
-        id,
-        value,
-        currency.name,
-        currency.priceUsd
-      );
-      setBriefcaseInfo(newBriefcaseCurrencyInfo);
-    }
-  }
+  const onCurrencyAdd = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      if (id && currency) {
+        const newBriefcaseCurrencyInfo = addCurrencyToBriefcase(
+          briefcaseInfo,
+          id,
+          value,
+          currency.name,
+          currency.priceUsd
+        );
+        setBriefcaseInfo(newBriefcaseCurrencyInfo);
+      }
+    },
+    [id, currency]
+  );
 
   const { maxPrice, minPrice } = maxAndMinPrices(currencyHistory);
   console.log(maxPrice, minPrice);

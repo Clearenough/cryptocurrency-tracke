@@ -1,11 +1,11 @@
 import styles from './NumberInput.module.scss';
 
-interface IProps {
+interface INumberInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
 }
 
-function NumberInput({ value, ...props }: IProps) {
+function NumberInput({ value, ...props }: INumberInputProps) {
   return (
     <input
       {...props}
