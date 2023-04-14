@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { BriefcaseContext } from '../../context/briefcaseContext';
 import { CurrencyContext } from '../../context/currencyContext';
 
@@ -35,19 +35,22 @@ function Info() {
     })();
   }, []);
 
-  function onCurrencyAdd(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    if (id && currency) {
-      const newBriefcaseCurrencyInfo = addCurrencyToBriefcase(
-        briefcaseInfo,
-        id,
-        value,
-        currency.name,
-        currency.priceUsd
-      );
-      setBriefcaseInfo(newBriefcaseCurrencyInfo);
-    }
-  }
+  const onCurrencyAdd = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      if (id && currency) {
+        const newBriefcaseCurrencyInfo = addCurrencyToBriefcase(
+          briefcaseInfo,
+          id,
+          value,
+          currency.name,
+          currency.priceUsd
+        );
+        setBriefcaseInfo(newBriefcaseCurrencyInfo);
+      }
+    },
+    [id, currency]
+  );
 
   const { maxPrice, minPrice } = maxAndMinPrices(currencyHistory);
   console.log(maxPrice, minPrice);
