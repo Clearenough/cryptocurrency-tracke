@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import styles from './ControlButton.module.scss';
 
 interface IControlButtonProps {
@@ -6,8 +8,13 @@ interface IControlButtonProps {
 }
 
 function ControlButton({ type, ...props }: IControlButtonProps) {
+  const btnClass = classNames({
+    [styles.addButton]: type === 'ADD',
+    [styles.deleteButton]: type === 'DELETE',
+  });
+
   return (
-    <button {...props} className={type === 'ADD' ? styles.addButton : styles.deleteButton}>
+    <button {...props} className={btnClass}>
       {type === 'ADD' ? '+' : '-'}
     </button>
   );
