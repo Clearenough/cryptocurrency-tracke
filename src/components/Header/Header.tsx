@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { BriefcaseContext } from '../../context/briefcaseContext';
-import { CurrencyContext } from '../../context/currencyContext';
+
+import { fetchCurrencyInfo, fetchTopThreeCurrency } from '../../API/api';
 
 import ModalBriefcase from '../common/modals/modalBriefcase/ModalBriefcase';
 
 import { numberParser } from '../../utils/numberParser';
-import { totalBriefcaseSum } from '../../utils/briefcaseSumsInfo';
 import { briefcaseCurrencyDifference } from '../../utils/briefcaseCurrencyDiff';
-import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../../@types/constants';
+import { IAPICurrency, ICurrencyInfo } from '../../@types/common';
 
 import shop from './../../assets/svg/briefcase.svg';
 
@@ -15,28 +15,55 @@ import styles from './Header.module.scss';
 
 function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { currencyInfo } = useContext(CurrencyContext);
-  const { briefcaseInfo, setBriefcaseInfo } = useContext(BriefcaseContext);
-  const { currentBriefcaseSummary, briefcaseSummary } = totalBriefcaseSum(
-    briefcaseInfo,
-    currencyInfo
-  );
-  const percentDiff = briefcaseCurrencyDifference(currentBriefcaseSummary, briefcaseSummary);
-  const absoluteDiff = currentBriefcaseSummary - briefcaseSummary;
-  const popularCurrency = currencyInfo.slice(0, 3);
+  const [percentDiff, setPercentDiff] = useState(0);
+  const [absoluteDiff, setAbsoluteDiff] = useState(0);
+  const [currentPrice, setCurrentPrice] = useState(0);
+  const { briefcaseState } = useContext(BriefcaseContext);
+  const [topThreeCurrency, setTopThreeCurrency] = useState<ICurrencyInfo[]>([]);
+
+  const showPlus = absoluteDiff >= 0 ? '+' : '';
 
   useEffect(() => {
-    const briefcaseLocalStorage = localStorage.getItem(LOCALSTORAGE_BRIEFCASE_INFO_KEY);
-    if (briefcaseLocalStorage) {
-      setBriefcaseInfo(JSON.parse(briefcaseLocalStorage));
-    }
-  }, []);
+    const fetchPopularCurrency = async () => {
+      const res = await fetchTopThreeCurrency();
+      setTopThreeCurrency(res.data);
+    };
+    fetchPopularCurrency();
+  });
+
+  useEffect(() => {
+    const fetchCurrency = async () => {
+      const currencyPromises: Promise<IAPICurrency>[] = [];
+      briefcaseState.briefcaseInfo.forEach(async ({ id }) => {
+        const res = fetchCurrencyInfo(id);
+        currencyPromises.push(res);
+      });
+      Promise.all(currencyPromises).then((values) => {
+        const prices = values.map((value) => {
+          const quantity = briefcaseState.briefcaseInfo.find(
+            (currency) => currency.id === value.data.id
+          )!.quantity;
+          return +quantity * +value.data.priceUsd;
+        });
+        const currentPrise = prices.reduce((acc, price) => acc + price, 0);
+        const initialPrice = briefcaseState.briefcaseInfo.reduce(
+          (acc, currency) => acc + +currency.priceUsd * +currency.quantity,
+          0
+        );
+        setCurrentPrice(currentPrise);
+        setPercentDiff(briefcaseCurrencyDifference(currentPrise, initialPrice));
+        setAbsoluteDiff(currentPrise - initialPrice);
+      });
+    };
+
+    fetchCurrency();
+  }, [JSON.stringify(briefcaseState.briefcaseInfo)]);
 
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         <ul className={styles.currencyList}>
-          {popularCurrency.map((currency) => (
+          {topThreeCurrency.map((currency) => (
             <li key={currency.id}>{`${currency.name}: ${numberParser(currency.priceUsd)}$`}</li>
           ))}
         </ul>
@@ -48,12 +75,12 @@ function Header() {
             onClick={() => setIsModalOpen(true)}
           />
           <span className={styles.briefcaseDiff}>
-            {`${numberParser(currentBriefcaseSummary.toString())} USD +${numberParser(
+            {`${numberParser(currentPrice.toString())} USD ${showPlus} ${numberParser(
               absoluteDiff.toString()
             )}(${numberParser(percentDiff.toString())} %)`}
           </span>
         </div>
-        {isModalOpen && <ModalBriefcase close={setIsModalOpen} />}
+        {isModalOpen && <ModalBriefcase close={setIsModalOpen} currentPrice={currentPrice} />}
       </div>
     </header>
   );

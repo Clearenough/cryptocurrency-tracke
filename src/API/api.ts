@@ -1,17 +1,31 @@
-import { IAPICurrencyHistory, IAPIResults, Interval } from '../@types/common';
+import { IAPICurrency, IAPICurrencyHistory, IAPIResults, Interval } from '../@types/common';
 import { API_URL } from '../@types/constants';
 
-export async function fetchData(): Promise<IAPIResults> {
-  console.log('fetch');
-  const res = await fetch(`${API_URL}`, {
+export async function fetchTopThreeCurrency(): Promise<IAPIResults> {
+  const res = await fetch(`${API_URL}?limit=3`, {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_COINCAP_API_KEY}`,
     },
   });
-  console.log(res);
-  const data: IAPIResults = await res.json();
-  console.log(data);
-  return data;
+  return res.json();
+}
+
+export async function fetchTableInfo(offset: number, limit: number): Promise<IAPIResults> {
+  const res = await fetch(`${API_URL}?offset=${offset}&limit=${limit}`, {
+    headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_COINCAP_API_KEY}`,
+    },
+  });
+  return res.json();
+}
+
+export async function fetchCurrencyInfo(id: string): Promise<IAPICurrency> {
+  const res = await fetch(`${API_URL}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_COINCAP_API_KEY}`,
+    },
+  });
+  return res.json();
 }
 
 export async function fetchHistory(id: string, interval: Interval): Promise<IAPICurrencyHistory> {
