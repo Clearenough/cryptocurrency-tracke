@@ -39,6 +39,11 @@ export interface IAPICurrencyHistory {
   timestamp: number;
 }
 
+export interface IAPICurrency {
+  data: ICurrencyInfo;
+  timestamp: number;
+}
+
 export interface ICurrencyContext {
   currencyInfo: ICurrencyInfo[];
   setCurrencyInfo: (currencyInfo: ICurrencyInfo[]) => void;
