@@ -8,7 +8,7 @@ import { deleteCurrencyFromBriefcase } from '../../../../utils/deleteCurrencyFro
 import { CurrencyContext } from '../../../../context/currencyContext';
 import { totalBriefcaseSum } from '../../../../utils/briefcaseSumsInfo';
 
-interface IProps {
+interface IModalBriefcaseProps {
   close: (value: boolean) => void;
 }
 

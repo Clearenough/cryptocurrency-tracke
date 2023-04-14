@@ -1,7 +1,7 @@
 import { DOTS, usePagination } from '../../hooks/usePagination';
 import styles from './Pagination.module.scss';
 
-interface IProps {
+interface IPaginationProps {
   onPageChange: (page: number) => void;
   totalCount: number;
   siblingCount: number;
@@ -9,7 +9,13 @@ interface IProps {
   pageSize: number;
 }
 
-function Pagination({ onPageChange, totalCount, siblingCount, currentPage, pageSize }: IProps) {
+function Pagination({
+  onPageChange,
+  totalCount,
+  siblingCount,
+  currentPage,
+  pageSize,
+}: IPaginationProps) {
   const paginationRange = usePagination({ currentPage, totalCount, siblingCount, pageSize });
 
   if (paginationRange) {

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ICurrencyHistory } from '../../@types/common';
 import { fetchHistory } from '../../API/api';
 import ControlButton from '../../components/common/buttons/controlButton/ControlButton';
-import CurrencyHistoryChart from '../../components/common/charts/currencyHistoryChart/currencyHistoryChart';
+import CurrencyHistoryChart from '../../components/common/charts/currencyHistoryChart/CurrencyHistoryChart';
 import NumberInput from '../../components/common/inputs/numberInput/NumberInput';
 import { BriefcaseContext } from '../../context/briefcaseContext';
 import { CurrencyContext } from '../../context/currencyContext';
