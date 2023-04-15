@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -25,13 +26,14 @@ interface ICurrencyHistoryChartProps {
 }
 
 function CurrencyHistoryChart({ priceHistory }: ICurrencyHistoryChartProps) {
+  const { t } = useTranslation();
   const labels = currencyPriceHistoryChartLabels(priceHistory);
   const prices = priceHistory.map((price) => price.priceUsd);
   const data = {
     labels,
     datasets: [
       {
-        label: 'Currency price history',
+        label: t('chart.title'),
         data: prices,
         borderColor: 'rgb(25, 118, 210)',
         backgroundColor: '#e6e6e6',

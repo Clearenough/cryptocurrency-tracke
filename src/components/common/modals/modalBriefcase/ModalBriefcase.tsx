@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { useContext } from 'react';
 import { BriefcaseContext } from '../../../../context/briefcaseContext';
 
@@ -16,6 +18,7 @@ interface IModalBriefcaseProps {
 }
 
 function ModalBriefcase({ close, currentPrice }: IModalBriefcaseProps) {
+  const { t } = useTranslation();
   const { briefcaseState, briefcaseDispatch } = useContext(BriefcaseContext);
 
   const deleteCurrency = (id: string) => {
@@ -32,7 +35,7 @@ function ModalBriefcase({ close, currentPrice }: IModalBriefcaseProps) {
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <img className={styles.img} src={shop} alt="briefcase" />
         <h2 className={styles.totalSum}>
-          Current total sum: ${numberParser(currentPrice.toString())}
+          {t('modal.total_sum', { howMany: numberParser(currentPrice.toString()) })}
         </h2>
         <ul className={styles.currencyList}>
           {briefcaseState.briefcaseInfo.map((item) => (
