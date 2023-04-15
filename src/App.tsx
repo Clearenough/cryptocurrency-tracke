@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
+import './localization/i18n';
 
 import Info from './pages/Info/Info';
 import Main from './pages/Main/Main';

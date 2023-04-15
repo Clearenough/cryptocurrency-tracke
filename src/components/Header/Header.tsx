@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { useContext, useEffect, useState } from 'react';
 import { BriefcaseContext } from '../../context/briefcaseContext';
 
@@ -14,6 +16,7 @@ import shop from './../../assets/svg/briefcase.svg';
 import styles from './Header.module.scss';
 
 function Header() {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [percentDiff, setPercentDiff] = useState(0);
   const [absoluteDiff, setAbsoluteDiff] = useState(0);
