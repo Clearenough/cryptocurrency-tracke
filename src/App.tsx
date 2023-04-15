@@ -15,7 +15,7 @@ function App() {
   return (
     <AppContextProviders>
       <Header />
-      <section>
+      <section className="section">
         <div className="container">
           <Routes>
             <Route path="/" element={<Main />} />

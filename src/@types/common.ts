@@ -29,17 +29,21 @@ export interface IBriefcaseInfo extends ICurrencyForBriefcase {
   quantity: string;
 }
 
-export interface IAPIResults {
+export interface IAPIError {
+  error: string;
+}
+
+export interface IAPIResults extends IAPIError {
   data: ICurrencyInfo[];
   timestamp: number;
 }
 
-export interface IAPICurrencyHistory {
+export interface IAPICurrencyHistory extends IAPIError {
   data: ICurrencyHistory[];
   timestamp: number;
 }
 
-export interface IAPICurrency {
+export interface IAPICurrency extends IAPIError {
   data: ICurrencyInfo;
   timestamp: number;
 }

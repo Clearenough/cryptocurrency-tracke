@@ -8,9 +8,26 @@
 }
 
 html {
+  body {
+    height: 100vh;
+
+    #root {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      height: 100%;
+
+      .section {
+        display: flex;
+        flex: 1;
+      }
+    }
+  }
+
   font-size: 10px;
 }
 
 .container {
   @include container;
+  height: 100%;
 }
