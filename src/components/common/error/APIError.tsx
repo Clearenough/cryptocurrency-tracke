@@ -1,4 +1,4 @@
-import styles from './Error.module.scss';
+import styles from './APIError.module.scss';
 
 interface IAPIErrorProps {
   message: string;
