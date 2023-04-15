@@ -14,6 +14,7 @@ import { IAPICurrency, ICurrencyInfo } from '../../@types/common';
 import shop from './../../assets/svg/briefcase.svg';
 
 import styles from './Header.module.scss';
+import APIError from '../common/error/APIError';
 
 function Header() {
   const { t } = useTranslation();
@@ -21,6 +22,7 @@ function Header() {
   const [percentDiff, setPercentDiff] = useState(0);
   const [absoluteDiff, setAbsoluteDiff] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(0);
+  const [error, setError] = useState<string>();
   const { briefcaseState } = useContext(BriefcaseContext);
   const [topThreeCurrency, setTopThreeCurrency] = useState<ICurrencyInfo[]>([]);
 
@@ -32,7 +34,7 @@ function Header() {
       setTopThreeCurrency(res.data);
     };
     fetchPopularCurrency();
-  });
+  }, []);
 
   useEffect(() => {
     const fetchCurrency = async () => {
@@ -43,6 +45,9 @@ function Header() {
       });
       Promise.all(currencyPromises).then((values) => {
         const prices = values.map((value) => {
+          if (value.error) {
+            setError(value.error);
+          }
           const quantity = briefcaseState.briefcaseInfo.find(
             (currency) => currency.id === value.data.id
           )!.quantity;
@@ -64,27 +69,33 @@ function Header() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
-        <ul className={styles.currencyList}>
-          {topThreeCurrency.map((currency) => (
-            <li key={currency.id}>{`${currency.name}: ${numberParser(currency.priceUsd)}$`}</li>
-          ))}
-        </ul>
-        <div className={styles.briefcase}>
-          <img
-            src={shop}
-            alt="briefcase"
-            className={styles.briefcaseImg}
-            onClick={() => setIsModalOpen(true)}
-          />
-          <span className={styles.briefcaseDiff}>
-            {`${numberParser(currentPrice.toString())} USD ${showPlus} ${numberParser(
-              absoluteDiff.toString()
-            )}(${numberParser(percentDiff.toString())} %)`}
-          </span>
-        </div>
-        {isModalOpen && <ModalBriefcase close={setIsModalOpen} currentPrice={currentPrice} />}
-      </div>
+      {error ? (
+        <APIError message={error} />
+      ) : (
+        <>
+          <div className={styles.container}>
+            <ul className={styles.currencyList}>
+              {topThreeCurrency.map((currency) => (
+                <li key={currency.id}>{`${currency.name}: ${numberParser(currency.priceUsd)}$`}</li>
+              ))}
+            </ul>
+            <div className={styles.briefcase}>
+              <img
+                src={shop}
+                alt="briefcase"
+                className={styles.briefcaseImg}
+                onClick={() => setIsModalOpen(true)}
+              />
+              <span className={styles.briefcaseDiff}>
+                {`${numberParser(currentPrice.toString())} ${t('usd')} ${showPlus} ${numberParser(
+                  absoluteDiff.toString()
+                )}(${numberParser(percentDiff.toString())} ${t('percent')})`}
+              </span>
+            </div>
+            {isModalOpen && <ModalBriefcase close={setIsModalOpen} currentPrice={currentPrice} />}
+          </div>
+        </>
+      )}
     </header>
   );
 }
