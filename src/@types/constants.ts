@@ -22,3 +22,10 @@ export const PRICE_HISTORY_CHART_LABELS_MONTHES = [
 ];
 
 export const PRICE_HISTORY_CHART_LABELS_YEARS = [2022, 2023];
+
+export enum ROUTE {
+  MAIN = '/',
+  INFO = '/info/:id',
+  NOT_FOUND = '/404',
+  ANY = '*',
+}

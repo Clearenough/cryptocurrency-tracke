@@ -48,11 +48,6 @@ export interface IAPICurrency extends IAPIError {
   timestamp: number;
 }
 
-export interface ICurrencyContext {
-  currencyInfo: ICurrencyInfo[];
-  setCurrencyInfo: (currencyInfo: ICurrencyInfo[]) => void;
-}
-
 export interface IBriefcaseState {
   briefcaseInfo: IBriefcaseInfo[];
   loading: boolean;
