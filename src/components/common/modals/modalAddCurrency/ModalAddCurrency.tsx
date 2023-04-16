@@ -14,7 +14,7 @@ interface IModalAddCurrencyProps {
 }
 
 function ModalAddCurrency({ close, currencyForBriefcase }: IModalAddCurrencyProps) {
-  const [value, setValue] = useState('0');
+  const [value, setValue] = useState('');
   const { briefcaseDispatch } = useContext(BriefcaseContext);
 
   function onCurrencyAdd() {
