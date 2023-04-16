@@ -26,7 +26,7 @@ function Info() {
   const [isLoading, setIsLoading] = useState(false);
   const [currencyHistory, setCurrencyHistory] = useState<ICurrencyHistory[]>([]);
   const [currency, setCurrency] = useState<ICurrencyInfo>();
-  const [value, setValue] = useState('0');
+  const [value, setValue] = useState('');
   const { briefcaseDispatch } = useContext(BriefcaseContext);
 
   useEffect(() => {
