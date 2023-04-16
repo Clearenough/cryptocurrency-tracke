@@ -12,6 +12,10 @@
     padding: 5rem 10rem;
     gap: 4rem;
 
+    @include respond(mobile) {
+      padding: 4rem 7rem;
+    }
+
     .currencyName {
       font-size: 4rem;
     }

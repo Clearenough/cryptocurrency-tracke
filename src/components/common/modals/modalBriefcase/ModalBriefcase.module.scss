@@ -12,6 +12,15 @@
     background-color: white;
     padding: 2rem 10rem;
     font-size: 2rem;
+    color: black;
+
+    @include respond(tablet) {
+      padding: 2rem 2rem;
+    }
+
+    @include respond(mobile) {
+      padding: 2rem 1rem;
+    }
 
     .img {
       position: relative;
@@ -23,6 +32,10 @@
 
     .totalSum {
       font-size: 3rem;
+
+      @include respond(mobile) {
+        font-size: 2rem;
+      }
     }
 
     .currencyList {
@@ -33,11 +46,20 @@
       flex-direction: column;
       gap: 2rem;
 
+      @include respond(mobile) {
+        gap: 1rem;
+      }
+
       .listItem {
         display: flex;
         justify-content: space-between;
         align-items: center;
         gap: 3rem;
+
+        @include respond(mobile) {
+          gap: 1rem;
+          font-size: 1.5rem;
+        }
       }
     }
   }

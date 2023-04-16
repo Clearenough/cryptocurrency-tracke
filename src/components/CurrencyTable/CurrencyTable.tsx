@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 import CurrencyTableRow from '../CurrencyTableRow/CurrencyTableRow';
 
@@ -13,6 +14,9 @@ interface ICurrencyTableProps {
 function CurrencyTable({ tableInfo }: ICurrencyTableProps) {
   const { t } = useTranslation();
 
+  const laptopClass = classNames([styles.tableCell, styles.laptopHide]);
+  const tabletClass = classNames([styles.tableCell, styles.tabletHide]);
+
   return (
     <table className={styles.table}>
       <thead className={styles.tableHeader}>
@@ -20,11 +24,11 @@ function CurrencyTable({ tableInfo }: ICurrencyTableProps) {
           <th className={styles.tableCell}>{t('currency.rank')}</th>
           <th className={styles.tableCell}>{t('currency.name')}</th>
           <th className={styles.tableCell}>{t('currency.price')}</th>
-          <th className={styles.tableCell}>{t('currency.change')}</th>
-          <th className={styles.tableCell}>{t('currency.cap')}</th>
-          <th className={styles.tableCell}>{t('currency.vwap')}</th>
-          <th className={styles.tableCell}>{t('currency.volume')}</th>
-          <th className={styles.tableCell}>{t('currency.supply')}</th>
+          <th className={tabletClass}>{t('currency.change')}</th>
+          <th className={tabletClass}>{t('currency.cap')}</th>
+          <th className={tabletClass}>{t('currency.vwap')}</th>
+          <th className={laptopClass}>{t('currency.volume')}</th>
+          <th className={laptopClass}>{t('currency.supply')}</th>
         </tr>
       </thead>
       <tbody>

@@ -10,6 +10,7 @@
 html {
   body {
     height: 100vh;
+    font-family: 'Roboto', sans-serif;
 
     #root {
       display: flex;
@@ -29,5 +30,7 @@ html {
 
 .container {
   @include container;
+  display: flex;
+  justify-content: center;
   height: 100%;
 }

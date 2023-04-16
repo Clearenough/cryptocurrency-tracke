@@ -6,6 +6,11 @@
   padding: 2rem 0;
   background-color: $secondary-color;
   font-size: 2rem;
+  color: $main-color;
+
+  @include respond(tablet) {
+    padding: 1rem 0;
+  }
 
   .container {
     @include container;
@@ -13,11 +18,30 @@
     justify-content: space-between;
     align-items: center;
 
+    @include respond(desktop) {
+      gap: 2rem;
+      font-size: 2rem;
+    }
+
+    @include respond(tablet) {
+      gap: 2rem;
+      font-size: 1.5rem;
+    }
+
+    @include respond(mobile) {
+      gap: 1rem;
+      font-size: 1.2rem;
+    }
+
     .currencyList {
       display: flex;
       justify-content: space-between;
       gap: 2rem;
       list-style: none;
+
+      @include respond(tablet) {
+        gap: 1rem;
+      }
     }
 
     .briefcase {
@@ -25,10 +49,19 @@
       align-items: center;
       gap: 2rem;
 
+      @include respond(tablet) {
+        gap: 1rem;
+      }
+
       .briefcaseImg {
         cursor: pointer;
         width: 4.6rem;
         height: 4.6rem;
+
+        @include respond(mobile) {
+          width: 3.5rem;
+          height: 3.5rem;
+        }
       }
     }
   }
