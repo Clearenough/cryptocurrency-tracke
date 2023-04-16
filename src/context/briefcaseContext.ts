@@ -6,7 +6,7 @@ import {
   IBriefcaseContext,
   IBriefcaseState,
 } from '../@types/common';
-import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../@types/constants';
+import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../@constants/localStorageKeys';
 
 export const briefcaseStateInitialValue: IBriefcaseState = {
   briefcaseInfo: [],

@@ -10,7 +10,7 @@ import Footer from './components/Footer/Footer';
 import AppContextProviders from './components/Context/AppContextProviders';
 
 import './index.scss';
-import { ROUTE } from './@types/constants';
+import { ROUTE } from './@constants/routes';
 
 function App() {
   return (

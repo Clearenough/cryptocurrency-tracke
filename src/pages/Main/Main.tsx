@@ -5,7 +5,7 @@ import { fetchTableInfo } from '../../API/api';
 import CurrencyTable from '../../components/CurrencyTable/CurrencyTable';
 import Pagination from '../../components/Pagination/Pagination';
 
-import { PAGE_LIMIT, PAGE_SIZE, SIBLING_COUNT } from '../../@types/constants';
+import { PAGE_LIMIT, PAGE_SIZE, SIBLING_COUNT } from '../../@constants/tableSettings';
 import { ICurrencyInfo } from '../../@types/common';
 
 import styles from './Main.module.scss';

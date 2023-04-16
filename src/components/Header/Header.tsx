@@ -32,7 +32,7 @@ function Header() {
       setTopThreeCurrency(res.data);
     };
     fetchPopularCurrency();
-  });
+  }, []);
 
   useEffect(() => {
     const fetchCurrency = async () => {
