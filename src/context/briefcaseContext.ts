@@ -36,9 +36,16 @@ export function briefcaseReducer(state: IBriefcaseState, action: IBriefcaseActio
         } else {
           const newState = {
             ...state,
-            briefcaseInfo: state.briefcaseInfo.splice(index, 1, {
-              ...state.briefcaseInfo[index],
-              quantity: (action.payload.quantity + +state.briefcaseInfo[index].quantity).toString(),
+            briefcaseInfo: state.briefcaseInfo.map((currency) => {
+              if (currency.id === id && action.payload.quantity) {
+                return {
+                  ...state.briefcaseInfo[index],
+                  quantity: (
+                    action.payload.quantity + +state.briefcaseInfo[index].quantity
+                  ).toString(),
+                };
+              }
+              return currency;
             }),
           };
           localStorage.setItem(
@@ -52,12 +59,11 @@ export function briefcaseReducer(state: IBriefcaseState, action: IBriefcaseActio
     }
     case BriefcaseActionType.REMOVE: {
       if (action.payload.currencyId) {
-        const index = state.briefcaseInfo.findIndex(
-          (currency) => currency.id === action.payload.currencyId
-        );
         const newState = {
           ...state,
-          briefcaseInfo: state.briefcaseInfo.splice(index, 1),
+          briefcaseInfo: state.briefcaseInfo.filter(
+            (currency) => currency.id !== action.payload.currencyId
+          ),
         };
         localStorage.setItem(
           LOCALSTORAGE_BRIEFCASE_INFO_KEY,
