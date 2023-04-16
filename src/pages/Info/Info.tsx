@@ -65,7 +65,7 @@ function Info() {
         });
       }
     },
-    [id, currency]
+    [value]
   );
 
   const { maxPrice, minPrice } = maxAndMinPrices(currencyHistory);

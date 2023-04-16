@@ -6,7 +6,7 @@ import {
   IBriefcaseContext,
   IBriefcaseState,
 } from '../@types/common';
-import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../@types/constants';
+import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../@constants/localStorageKeys';
 
 export const briefcaseStateInitialValue: IBriefcaseState = {
   briefcaseInfo: [],
@@ -38,7 +38,7 @@ export function briefcaseReducer(state: IBriefcaseState, action: IBriefcaseActio
             ...state,
             briefcaseInfo: state.briefcaseInfo.splice(index, 1, {
               ...state.briefcaseInfo[index],
-              quantity: action.payload.quantity + state.briefcaseInfo[index].quantity,
+              quantity: (action.payload.quantity + +state.briefcaseInfo[index].quantity).toString(),
             }),
           };
           localStorage.setItem(

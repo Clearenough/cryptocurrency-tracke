@@ -10,6 +10,7 @@ import Footer from './components/Footer/Footer';
 import AppContextProviders from './components/Context/AppContextProviders';
 
 import './index.scss';
+import { ROUTE } from './@constants/routes';
 
 function App() {
   return (
@@ -18,10 +19,10 @@ function App() {
       <section className="section">
         <div className="container">
           <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/info/:id" element={<Info />} />
-            <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<Navigate to={'/404'} />} />
+            <Route path={ROUTE.MAIN} element={<Main />} />
+            <Route path={ROUTE.INFO} element={<Info />} />
+            <Route path={ROUTE.NOT_FOUND} element={<NotFound />} />
+            <Route path={ROUTE.ANY} element={<Navigate to={ROUTE.NOT_FOUND} />} />
           </Routes>
         </div>
       </section>

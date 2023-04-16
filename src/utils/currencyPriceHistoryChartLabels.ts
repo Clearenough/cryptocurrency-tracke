@@ -2,7 +2,7 @@ import { ICurrencyHistory } from '../@types/common';
 import {
   PRICE_HISTORY_CHART_LABELS_MONTHES,
   PRICE_HISTORY_CHART_LABELS_YEARS,
-} from '../@types/constants';
+} from '../@constants/chartLabels';
 
 export function currencyPriceHistoryChartLabels(currencyPriceHistory: ICurrencyHistory[]) {
   const labels = currencyPriceHistory.map((value) => {

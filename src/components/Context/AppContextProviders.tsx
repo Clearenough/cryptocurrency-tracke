@@ -1,6 +1,6 @@
 import { useMemo, useReducer } from 'react';
 import { IBriefcaseInfo } from '../../@types/common';
-import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../../@types/constants';
+import { LOCALSTORAGE_BRIEFCASE_INFO_KEY } from '../../@constants/localStorageKeys';
 import {
   BriefcaseContext,
   briefcaseStateInitialValue,

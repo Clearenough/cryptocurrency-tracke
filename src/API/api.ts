@@ -1,8 +1,7 @@
 import { IAPICurrency, IAPICurrencyHistory, IAPIResults, Interval } from '../@types/common';
-import { API_URL } from '../@types/constants';
 
 export async function fetchTopThreeCurrency(): Promise<IAPIResults> {
-  const res = await fetch(`${API_URL}?limit=3`, {
+  const res = await fetch(`${import.meta.env.VITE_COINCAP_URL}?limit=3`, {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_COINCAP_API_KEY}`,
     },
@@ -11,7 +10,7 @@ export async function fetchTopThreeCurrency(): Promise<IAPIResults> {
 }
 
 export async function fetchTableInfo(offset: number, limit: number): Promise<IAPIResults> {
-  const res = await fetch(`${API_URL}?offset=${offset}&limit=${limit}`, {
+  const res = await fetch(`${import.meta.env.VITE_COINCAP_URL}?offset=${offset}&limit=${limit}`, {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_COINCAP_API_KEY}`,
     },
@@ -20,7 +19,7 @@ export async function fetchTableInfo(offset: number, limit: number): Promise<IAP
 }
 
 export async function fetchCurrencyInfo(id: string): Promise<IAPICurrency> {
-  const res = await fetch(`${API_URL}/${id}`, {
+  const res = await fetch(`${import.meta.env.VITE_COINCAP_URL}/${id}`, {
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_COINCAP_API_KEY}`,
     },
@@ -29,11 +28,14 @@ export async function fetchCurrencyInfo(id: string): Promise<IAPICurrency> {
 }
 
 export async function fetchHistory(id: string, interval: Interval): Promise<IAPICurrencyHistory> {
-  const res = await fetch(`${API_URL}/${id}/history?interval=${interval}`, {
-    headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_COINCAP_API_KEY}`,
-    },
-  });
+  const res = await fetch(
+    `${import.meta.env.VITE_COINCAP_URL}/${id}/history?interval=${interval}`,
+    {
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_COINCAP_API_KEY}`,
+      },
+    }
+  );
   const data: IAPICurrencyHistory = await res.json();
   return data;
 }

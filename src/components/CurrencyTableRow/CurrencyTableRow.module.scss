@@ -3,6 +3,7 @@
 .tableRow {
   // display: flex;
   // // justify-content: space-between;
+  cursor: pointer;
   background-color: white;
   box-shadow: 6px 6px 8px 0px rgba(34, 60, 80, 0.2);
   border: 3rem solid $background-table;
