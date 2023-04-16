@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import { useCallback, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +19,9 @@ interface ICurrencyTableRowProps {
 function CurrencyTableRow({ currencyItem }: ICurrencyTableRowProps) {
   const [isModalAddCurrencyOpen, setIsModalAddCurrencyOpen] = useState(false);
   const navigate = useNavigate();
+
+  const laptopClass = classNames([styles.tableCell, styles.laptopHide]);
+  const tabletClass = classNames([styles.tableCell, styles.tabletHide]);
 
   const {
     rank,
@@ -49,11 +54,11 @@ function CurrencyTableRow({ currencyItem }: ICurrencyTableRowProps) {
         <td className={styles.tableCell}>{rank}</td>
         <td className={styles.tableCell}>{name}</td>
         <td className={styles.tableCell}>{numberParser(priceUsd)}</td>
-        <td className={styles.tableCell}>{numberParser(changePercent24Hr)}</td>
-        <td className={styles.tableCell}>{numberParser(marketCapUsd)}</td>
-        <td className={styles.tableCell}>{numberParser(vwap24Hr)}</td>
-        <td className={styles.tableCell}>{numberParser(volumeUsd24Hr)}</td>
-        <td className={styles.tableCell}>{numberParser(supply)}</td>
+        <td className={tabletClass}>{numberParser(changePercent24Hr)}</td>
+        <td className={tabletClass}>{numberParser(marketCapUsd)}</td>
+        <td className={tabletClass}>{numberParser(vwap24Hr)}</td>
+        <td className={laptopClass}>{numberParser(volumeUsd24Hr)}</td>
+        <td className={laptopClass}>{numberParser(supply)}</td>
         <td className={styles.tableCell}>
           <ControlButton
             onClick={(e) => {

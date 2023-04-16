@@ -1,7 +1,21 @@
+@import './constants.scss';
+
 @mixin container {
   min-width: 1000px;
   margin: 0 auto;
   padding: 0 2rem;
+
+  @include respond(desktop) {
+    min-width: 769px;
+  }
+
+  @include respond(laptop) {
+    min-width: 481px;
+  }
+
+  @include respond(tablet) {
+    min-width: 320px;
+  }
 }
 
 @mixin modal {
@@ -15,4 +29,36 @@
   justify-content: center;
   background: rgba($color: rgb(0, 0, 0), $alpha: 0.4);
   z-index: 1;
+}
+
+@mixin respond($breakpoint) {
+  @if $breakpoint==desktop {
+    @media only screen and (max-width: $large-screen-width) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==laptop {
+    @media only screen and (max-width: $desktop-width) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==tablet {
+    @media only screen and (max-width: $laptop-width) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==mobile {
+    @media only screen and (max-width: $tablet-width) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==mobile {
+    @media only screen and (max-width: $mobile-width) {
+      @content;
+    }
+  }
 }

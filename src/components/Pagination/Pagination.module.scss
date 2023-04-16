@@ -1,4 +1,5 @@
 @import './../../style/constants.scss';
+@import './../../style/mixins.scss';
 
 .paginationBar {
   margin-top: 3rem;
@@ -8,6 +9,20 @@
   list-style: none;
   user-select: none;
   font-size: 2rem;
+
+  @include respond(laptop) {
+    margin-top: 2rem;
+  }
+
+  @include respond(tablet) {
+    font-size: 1.5rem;
+    gap: 1rem;
+  }
+
+  @include respond(mobile) {
+    font-size: 1.5rem;
+    gap: 0.5rem;
+  }
 
   .indicator {
     cursor: pointer;
@@ -20,6 +35,16 @@
     background-color: $secondary-color-light;
     border: 1px solid $secondary-color;
     border-radius: 100%;
+
+    @include respond(tablet) {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    @include respond(mobile) {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 
   .dotsIndicator {

@@ -37,6 +37,8 @@ function CurrencyHistoryChart({ priceHistory }: ICurrencyHistoryChartProps) {
         data: prices,
         borderColor: 'rgb(25, 118, 210)',
         backgroundColor: '#e6e6e6',
+        pointRadius: 0,
+        hoverPointRadius: 0,
       },
     ],
   };

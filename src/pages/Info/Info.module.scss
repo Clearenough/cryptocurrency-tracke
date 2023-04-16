@@ -11,6 +11,10 @@
 
   .name {
     font-size: 3rem;
+
+    @include respond(tablet) {
+      font-size: 2rem;
+    }
   }
 
   .infoList {
@@ -18,6 +22,16 @@
     display: flex;
     gap: 5rem;
     font-size: 2rem;
+
+    @include respond(tablet) {
+      gap: 2.5rem;
+      font-size: 1.5rem;
+    }
+
+    @include respond(mobile) {
+      gap: 1.5rem;
+      font-size: 1.5rem;
+    }
   }
 
   .form {

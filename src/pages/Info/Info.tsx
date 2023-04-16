@@ -81,14 +81,14 @@ function Info() {
         <>
           <h2 className={styles.name}>{currency?.name}</h2>
           {currency && (
-            <ul className={`${styles.infoList} ${styles.currencyInfo}`}>
+            <ul className={styles.infoList}>
               <li>{`${t('currency.change')}: ${numberParser(currency!.changePercent24Hr)}`}</li>
               <li>{`${t('currency.cap')}: ${numberParser(currency!.marketCapUsd)}`}</li>
               <li>{`${t('currency.volume')}: ${numberParser(currency!.volumeUsd24Hr)}`}</li>
             </ul>
           )}
           {currency && (
-            <ul className={`${styles.infoList} ${styles.priceHistory}`}>
+            <ul className={styles.infoList}>
               <li>{`${t('currency.price')}: ${numberParser(currency!.priceUsd)}`}</li>
               <li>{`${t('currency.max')}: ${numberParser(maxPrice.toString())}`}</li>
               <li>{`${t('currency.min')}: ${numberParser(minPrice.toString())}`}</li>
