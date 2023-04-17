@@ -1,4 +1,5 @@
 @import './../../style/mixins.scss';
+@import './../../style/constants.scss';
 
 .container {
   @include container;
@@ -6,14 +7,32 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 3rem;
 
-  .name {
-    font-size: 3rem;
+  .control {
+    width: 100%;
+    display: flex;
 
-    @include respond(tablet) {
-      font-size: 2rem;
+    .name {
+      align-self: center;
+      font-size: 3rem;
+
+      @include respond(tablet) {
+        font-size: 2rem;
+      }
+    }
+
+    .backBtn {
+      cursor: pointer;
+      margin-left: auto;
+      padding: 1rem;
+      background-color: $secondary-color-light;
+
+      &:hover {
+        color: $main-color;
+        background-color: $secondary-color;
+        border-radius: 10px;
+      }
     }
   }
 
@@ -37,5 +56,10 @@
   .form {
     display: flex;
     gap: 2rem;
+  }
+
+  .error {
+    font-size: 2rem;
+    color: red;
   }
 }

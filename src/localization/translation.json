@@ -5,7 +5,8 @@
         "title": "Currency price history"
       },
       "modal": {
-        "total_sum": "Current total sum: {{howMany}}$"
+        "total_sum": "Current total sum: {{howMany}}$",
+        "validation_error": "Invalid number"
       },
       "currency": {
         "rank": "Rank",
@@ -24,6 +25,9 @@
       },
       "page_404": {
         "not_found": "Page not Found"
+      },
+      "info": {
+        "back": "Back to Table"
       },
       "usd": "USD",
       "percent": "%",
