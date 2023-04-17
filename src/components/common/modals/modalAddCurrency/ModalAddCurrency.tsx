@@ -23,7 +23,7 @@ function ModalAddCurrency({ close, currencyForBriefcase }: IModalAddCurrencyProp
 
   function onCurrencyAdd(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
-    if (String(parseFloat(value)) === String(value) && parseFloat(value) !== 0) {
+    if (Number(value) && Number(value) !== 0) {
       setIsValidationError(false);
       briefcaseDispatch({
         type: BriefcaseActionType.ADD,
@@ -35,7 +35,6 @@ function ModalAddCurrency({ close, currencyForBriefcase }: IModalAddCurrencyProp
       close(false);
       return;
     }
-    console.log('error');
     setIsValidationError(true);
   }
 
