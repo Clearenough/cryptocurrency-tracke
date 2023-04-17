@@ -58,7 +58,7 @@ function Info() {
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (id && currency) {
-        if (String(parseFloat(value)) === String(value) && parseFloat(value) !== 0) {
+        if (Number(value) && Number(value) !== 0) {
           setIsValidationError(false);
           briefcaseDispatch({
             type: BriefcaseActionType.ADD,
