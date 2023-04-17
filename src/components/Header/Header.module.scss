@@ -45,8 +45,11 @@
     }
 
     .briefcase {
+      cursor: pointer;
       display: flex;
       align-items: center;
+      padding: 1rem;
+      background-color: $secondary-color-light;
       gap: 2rem;
 
       @include respond(tablet) {

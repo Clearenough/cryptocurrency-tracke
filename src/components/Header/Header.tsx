@@ -70,13 +70,8 @@ function Header() {
             <li key={currency.id}>{`${currency.name}: ${numberParser(currency.priceUsd)}$`}</li>
           ))}
         </ul>
-        <div className={styles.briefcase}>
-          <img
-            src={shop}
-            alt="briefcase"
-            className={styles.briefcaseImg}
-            onClick={() => setIsModalOpen(true)}
-          />
+        <div className={styles.briefcase} onClick={() => setIsModalOpen(true)}>
+          <img src={shop} alt="briefcase" className={styles.briefcaseImg} />
           <span className={styles.briefcaseDiff}>
             {`${numberParser(currentPrice.toString())} ${t('usd')} ${showPlus} ${numberParser(
               absoluteDiff.toString()
