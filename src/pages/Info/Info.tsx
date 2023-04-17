@@ -25,6 +25,7 @@ function Info() {
   const [error, setError] = useState<string>();
   const [isLoading, setIsLoading] = useState(false);
   const [currencyHistory, setCurrencyHistory] = useState<ICurrencyHistory[]>([]);
+  const [isValidationError, setIsValidationError] = useState(false);
   const [currency, setCurrency] = useState<ICurrencyInfo>();
   const [value, setValue] = useState('');
   const { briefcaseDispatch } = useContext(BriefcaseContext);
@@ -56,14 +57,19 @@ function Info() {
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       if (id && currency) {
-        briefcaseDispatch({
-          type: BriefcaseActionType.ADD,
-          payload: {
-            currency: { id, name: currency.name, priceUsd: currency.priceUsd },
-            quantity: +value,
-          },
-        });
+        if (String(parseFloat(value)) === String(value) && parseFloat(value) !== 0) {
+          setIsValidationError(false);
+          briefcaseDispatch({
+            type: BriefcaseActionType.ADD,
+            payload: {
+              currency: { id, name: currency.name, priceUsd: currency.priceUsd },
+              quantity: +value,
+            },
+          });
+          return;
+        }
       }
+      setIsValidationError(true);
     },
     [value]
   );
@@ -98,6 +104,7 @@ function Info() {
             <NumberInput onChange={(e) => setValue(e.target.value)} value={value} />
             <ControlButton type="ADD" onClick={(e) => onCurrencyAdd(e)} />
           </form>
+          {isValidationError && <span className={styles.error}>{t('modal.validation_error')}</span>}
           <CurrencyHistoryChart priceHistory={currencyHistory} />
         </>
       )}

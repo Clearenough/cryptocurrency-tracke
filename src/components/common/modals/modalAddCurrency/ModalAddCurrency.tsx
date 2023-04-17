@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import React, { useContext, useState } from 'react';
 import { BriefcaseContext } from '../../../../context/briefcaseContext';
 
@@ -14,18 +16,27 @@ interface IModalAddCurrencyProps {
 }
 
 function ModalAddCurrency({ close, currencyForBriefcase }: IModalAddCurrencyProps) {
+  const { t } = useTranslation();
   const [value, setValue] = useState('');
+  const [isValidationError, setIsValidationError] = useState(false);
   const { briefcaseDispatch } = useContext(BriefcaseContext);
 
-  function onCurrencyAdd() {
-    briefcaseDispatch({
-      type: BriefcaseActionType.ADD,
-      payload: {
-        currency: { ...currencyForBriefcase },
-        quantity: +value,
-      },
-    });
-    close(false);
+  function onCurrencyAdd(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault();
+    if (String(parseFloat(value)) === String(value) && parseFloat(value) !== 0) {
+      setIsValidationError(false);
+      briefcaseDispatch({
+        type: BriefcaseActionType.ADD,
+        payload: {
+          currency: { ...currencyForBriefcase },
+          quantity: +value,
+        },
+      });
+      close(false);
+      return;
+    }
+    console.log('error');
+    setIsValidationError(true);
   }
 
   return (
@@ -34,8 +45,9 @@ function ModalAddCurrency({ close, currencyForBriefcase }: IModalAddCurrencyProp
         <h2 className={styles.currencyName}>{currencyForBriefcase.name}</h2>
         <form className={styles.form}>
           <NumberInput onChange={(e) => setValue(e.target.value)} value={value} />
-          <ControlButton type="ADD" onClick={onCurrencyAdd} />
+          <ControlButton type="ADD" onClick={(e) => onCurrencyAdd(e)} />
         </form>
+        {isValidationError && <span className={styles.error}>{t('modal.validation_error')}</span>}
       </div>
     </div>
   );
