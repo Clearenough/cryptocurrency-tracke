@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { BriefcaseContext } from '../../context/briefcaseContext';
@@ -20,6 +20,7 @@ import LoadingScreen from '../../components/common/loading/LoadingScreen';
 import APIError from '../../components/common/error/APIError';
 
 function Info() {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const { id } = useParams();
   const [error, setError] = useState<string>();
@@ -75,7 +76,6 @@ function Info() {
   );
 
   const { maxPrice, minPrice } = maxAndMinPrices(currencyHistory);
-  console.log(maxPrice, minPrice);
 
   return (
     <div className={styles.container}>
@@ -85,7 +85,13 @@ function Info() {
         <APIError message={error} />
       ) : (
         <>
-          <h2 className={styles.name}>{currency?.name}</h2>
+          <div className={styles.control}>
+            <h2 className={styles.name}>{currency?.name}</h2>
+            <button onClick={() => navigate('/')} className={styles.backBtn}>
+              {t('info.back')}
+            </button>
+          </div>
+
           {currency && (
             <ul className={styles.infoList}>
               <li>{`${t('currency.change')}: ${numberParser(currency!.changePercent24Hr)}`}</li>

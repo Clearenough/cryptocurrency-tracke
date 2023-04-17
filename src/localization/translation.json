@@ -26,6 +26,9 @@
       "page_404": {
         "not_found": "Page not Found"
       },
+      "info": {
+        "back": "Back to Table"
+      },
       "usd": "USD",
       "percent": "%",
       "briefcase_title": "Briefcase: ",
