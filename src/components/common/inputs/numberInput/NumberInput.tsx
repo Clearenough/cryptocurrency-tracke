@@ -15,6 +15,7 @@ function NumberInput({ value, ...props }: INumberInputProps) {
       step={0.001}
       value={value}
       className={styles.input}
+      autoFocus
     />
   );
 }

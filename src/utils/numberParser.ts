@@ -1,6 +1,7 @@
 export function numberParser(value: string): string {
   let parsedNumber = '';
   const number = parseFloat(value);
+  let firstDigit: number;
   switch (true) {
     case number >= 1e9:
       parsedNumber = `${(number / 1e9).toFixed(3)}b`;
@@ -12,10 +13,10 @@ export function numberParser(value: string): string {
       parsedNumber = `${(number / 1e3).toFixed(3)}k`;
       break;
     case number < 1e3 && number > 0.01:
-      parsedNumber = `${number.toFixed(3)}`;
+      parsedNumber = `${number.toFixed(5)}`;
       break;
     case number <= 0.01 && number !== 0:
-      const firstDigit = Math.ceil(Math.abs(Math.log10(number)));
+      firstDigit = Math.ceil(Math.abs(Math.log10(number)));
       parsedNumber = `${number.toFixed(firstDigit)}`;
       break;
     case number === 0:

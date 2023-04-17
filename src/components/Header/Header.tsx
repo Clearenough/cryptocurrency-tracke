@@ -80,7 +80,7 @@ function Header() {
           <span className={styles.briefcaseDiff}>
             {`${numberParser(currentPrice.toString())} ${t('usd')} ${showPlus} ${numberParser(
               absoluteDiff.toString()
-            )}(${numberParser(percentDiff.toString())} ${t('percent')})`}
+            )}(${percentDiff ? numberParser(percentDiff.toString()) : 0} ${t('percent')})`}
           </span>
         </div>
         {isModalOpen && <ModalBriefcase close={setIsModalOpen} currentPrice={currentPrice} />}
